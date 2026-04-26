@@ -2062,32 +2062,30 @@
 
       var ig = document.getElementById('inq-ig').value.trim();
 
-      // Submit to Google Forms via hidden iframe GET
-      var gformUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSccHVVENTDuctejtFe1CS3gVDApqPdBLuhT_A2hfvyp4SqZDQ/formResponse?';
-      var params = new URLSearchParams();
-      params.append('entry.1287065821', brand.value.trim());
-      params.append('entry.1530181305', name.value.trim());
-      params.append('entry.619919753', email.value.trim());
-      params.append('entry.1715754270', ig);
-      params.append('entry.973961714', pkg.value);
-      types.forEach(function (t) { params.append('entry.466622411', t); });
-      params.append('entry.1596957595', timeline);
-      params.append('entry.1951635052', notes);
-      params.append('submit', 'Submit');
+      // Build mailto
+      var subject = 'Media Kit Inquiry — ' + brand.value.trim();
+      var body = 'Hi Montréal Bites,\n\n' +
+        'I\'m interested in working together. Here are the details:\n\n' +
+        '——————————————————\n' +
+        'ABOUT US\n' +
+        '——————————————————\n\n' +
+        'Brand / Restaurant:  ' + brand.value.trim() + '\n' +
+        'Contact Name:        ' + name.value.trim() + '\n' +
+        'Email:               ' + email.value.trim() + '\n' +
+        (ig ? 'Instagram:           ' + ig + '\n' : '') +
+        '\n' +
+        '——————————————————\n' +
+        'PROJECT DETAILS\n' +
+        '——————————————————\n\n' +
+        'Package Interest:    ' + pkg.value + '\n' +
+        'Content Type:        ' + (types.length ? types.join(', ') : 'Not specified') + '\n' +
+        'Timeline:            ' + timeline + '\n' +
+        (notes ? '\n——————————————————\nADDITIONAL NOTES\n——————————————————\n\n' + notes + '\n' : '') +
+        '\n——————————————————\n' +
+        'Sent via Montréal Bites Media Kit\n';
 
-      var iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.src = gformUrl + params.toString();
-      document.body.appendChild(iframe);
-
-      setTimeout(function () {
-        try { document.body.removeChild(iframe); } catch(e) {}
-      }, 3000);
-
-      form.style.display = 'none';
-      var header = document.querySelector('.inquiry-modal-header');
-      header.innerHTML = '<h2 style="font-family:var(--serif);font-weight:300;font-size:clamp(28px,4vw,38px);letter-spacing:-0.025em;margin:0;">Thank you.</h2>' +
-        '<p style="font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg-soft);margin:12px 0 0;">We\'ll get back to you within 48 hours with a custom proposal.</p>';
+      window.location.href = 'mailto:montrealbites@gmail.com?subject=' +
+        encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     });
 
     // Remove invalid state on input
