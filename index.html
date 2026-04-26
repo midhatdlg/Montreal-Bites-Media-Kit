@@ -1301,7 +1301,7 @@
       <div class="stat">
         <div>
           <div class="label">Total followers</div>
-          <div class="n" data-count="3817" data-raw="1">0</div>
+          <div class="n" id="total-followers-count" data-count="3817" data-raw="1">0</div>
         </div>
         <svg class="mini-chart" viewBox="0 0 120 28" preserveAspectRatio="none">
           <polyline fill="none" stroke="currentColor" stroke-width="1.2"
@@ -1381,7 +1381,7 @@
       <div class="platform-row">
         <div class="p-card">
           <div class="p-top"><span class="platform-icon">&#9678;</span><span class="handle">@montrealbites</span></div>
-          <div><div class="p-name">Followers</div><div class="p-big">3,817</div></div>
+          <div><div class="p-name">Followers</div><div class="p-big" id="ig-followers-value">3,817</div></div>
           <div class="p-row">
             <div><div class="k">Growth</div><div class="v">+2.3%</div></div>
             <div><div class="k">Since</div><div class="v">Jan 2025</div></div>
@@ -1418,7 +1418,7 @@
     <div class="pt-panel" data-panel="tt" hidden>
       <div class="platform-row">
         <div class="p-card">
-          <div class="p-top"><span class="platform-icon" style="font-family: var(--mono); letter-spacing:-.04em;">&#9834;</span><span class="handle">@montrealbites</span></div>
+          <div class="p-top"><span class="platform-icon" style="font-family: var(--mono); letter-spacing:-.04em;">&#9834;</span><span class="handle">@montrealbites &middot; <span id="tt-followers-value">676</span> followers</span></div>
           <div><div class="p-name">Post views</div><div class="p-big">676<span class="unit">K</span></div></div>
           <div class="p-row">
             <div><div class="k">28-day views</div><div class="v">38K</div></div>
@@ -1873,6 +1873,45 @@
     pwGate.classList.add('hidden');
     page.style.display = '';
   }
+
+  // ---------- Follower overrides from /update ----------
+  const FOLLOWER_STORAGE_KEY = 'mb-follower-counts';
+
+  const parseFollowerNumber = (value) => {
+    if (value == null) return null;
+    const normalized = String(value).replace(/,/g, '').trim();
+    if (!normalized) return null;
+    const num = Number(normalized);
+    return Number.isFinite(num) ? Math.max(0, Math.round(num)) : null;
+  };
+
+  const formatFollowers = (value) => value.toLocaleString('en-US');
+
+  (function applyFollowerOverrides() {
+    let overrides = null;
+    try {
+      overrides = JSON.parse(localStorage.getItem(FOLLOWER_STORAGE_KEY) || 'null');
+    } catch (err) {
+      return;
+    }
+    if (!overrides || typeof overrides !== 'object') return;
+
+    const igFollowers = parseFollowerNumber(overrides.instagram);
+    const ttFollowers = parseFollowerNumber(overrides.tiktok);
+
+    if (igFollowers != null) {
+      const igEl = document.getElementById('ig-followers-value');
+      if (igEl) igEl.textContent = formatFollowers(igFollowers);
+
+      const totalFollowersCounter = document.getElementById('total-followers-count');
+      if (totalFollowersCounter) totalFollowersCounter.dataset.count = String(igFollowers);
+    }
+
+    if (ttFollowers != null) {
+      const ttEl = document.getElementById('tt-followers-value');
+      if (ttEl) ttEl.textContent = formatFollowers(ttFollowers);
+    }
+  })();
 
   // ---------- Embed modal ----------
   const embedModal = document.getElementById('embed-modal');

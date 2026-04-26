@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Update - Montreal Bites Media Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #f3ede2;
+    --ivory-2: #ebe3d4;
+    --ink: #1a1714;
+    --ink-soft: #4a423a;
+    --paper-line: rgba(26, 23, 20, 0.12);
+    --paper-line-strong: rgba(26, 23, 20, 0.32);
+    --brick: #967969;
+    --bg: var(--ivory);
+    --fg: var(--ink);
+    --fg-soft: var(--ink-soft);
+    --line: var(--paper-line);
+    --line-strong: var(--paper-line-strong);
+    --accent: var(--brick);
+    --serif: "Fraunces", "Times New Roman", serif;
+    --sans: "Inter Tight", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+    --ok: #6a6a3d;
+    --err: #a33d1d;
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #161310;
+    --fg: #f3ede2;
+    --fg-soft: #b9ad97;
+    --line: rgba(243, 237, 226, 0.14);
+    --line-strong: rgba(243, 237, 226, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.005em;
+    background-image:
+      radial-gradient(1200px 600px at 80% -10%, rgba(201, 80, 42, 0.08), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(26, 23, 20, 0.06), transparent 60%);
+  }
+
+  :root[data-theme="dark"] body {
+    background-image:
+      radial-gradient(1200px 600px at 80% -10%, rgba(201, 80, 42, 0.14), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(243, 237, 226, 0.04), transparent 60%);
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.45;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.08 0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  :root[data-theme="dark"] body::before {
+    mix-blend-mode: screen;
+    opacity: 0.24;
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 36px 24px 70px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    border-bottom: 1px solid var(--fg);
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+  }
+
+  .logo {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1;
+  }
+
+  .logo em { font-style: italic; font-weight: 400; color: var(--accent); }
+
+  .mh-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-soft);
+  }
+
+  .panel {
+    border: 1px solid var(--line-strong);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 24px;
+  }
+
+  :root[data-theme="dark"] .panel {
+    background: rgba(243, 237, 226, 0.02);
+  }
+
+  .section-no {
+    display: inline-flex;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-soft);
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-family: var(--serif);
+    font-size: clamp(36px, 5.5vw, 52px);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+  }
+
+  h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+
+  .sub {
+    margin: 0 0 24px;
+    color: var(--fg-soft);
+    max-width: 50ch;
+  }
+
+  .field { margin-bottom: 14px; }
+
+  .field label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-soft);
+    margin-bottom: 6px;
+  }
+
+  .field input {
+    width: 100%;
+    border: 1px solid var(--fg);
+    background: transparent;
+    color: var(--fg);
+    padding: 11px 14px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    outline: none;
+  }
+
+  .field input:focus { border-color: var(--accent); }
+
+  .btn {
+    border: 0;
+    background: var(--fg);
+    color: var(--bg);
+    padding: 12px 18px;
+    font-family: var(--serif);
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .btn:hover { background: var(--accent); }
+
+  .btn-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+
+  .status {
+    margin-top: 14px;
+    padding: 10px 12px;
+    border: 1px dashed var(--line);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: none;
+  }
+
+  .status.show { display: block; }
+  .status.ok { border-color: var(--ok); color: var(--ok); }
+  .status.error { border-color: var(--err); color: var(--err); }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .meta {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+    color: var(--fg-soft);
+    font-size: 12px;
+  }
+
+  .meta a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .meta a:hover { text-decoration: underline; }
+
+  .login.hidden { display: none; }
+  .admin { display: none; }
+  .admin.show { display: block; }
+
+  @media (max-width: 620px) {
+    .wrap { padding: 24px 16px 56px; }
+    .panel { padding: 18px; }
+    .split { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="masthead">
+      <div class="logo">Montreal <em>Bites</em></div>
+      <span class="mh-meta">Media Kit Admin</span>
+    </header>
+
+    <section class="panel login" id="login-section">
+      <span class="section-no">&sect; 00 - Access</span>
+      <h1>Unlock <em>editor</em>.</h1>
+      <p class="sub">Enter your password to update Instagram and TikTok follower counts.</p>
+
+      <div class="field">
+        <label for="password-input">Password</label>
+        <input id="password-input" type="password" autocomplete="off" placeholder="Enter password">
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" id="unlock-btn">Unlock &rarr;</button>
+      </div>
+
+      <div class="status" id="login-status"></div>
+    </section>
+
+    <section class="panel admin" id="admin-section">
+      <span class="section-no">&sect; 01 - Followers</span>
+      <h1>Update <em>counts</em>.</h1>
+      <p class="sub">Saved values are used by the media kit page in this browser.</p>
+
+      <div class="split">
+        <div class="field">
+          <label for="instagram-followers">Instagram followers</label>
+          <input id="instagram-followers" type="text" inputmode="numeric" placeholder="3,817">
+        </div>
+        <div class="field">
+          <label for="tiktok-followers">TikTok followers</label>
+          <input id="tiktok-followers" type="text" inputmode="numeric" placeholder="676">
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" id="save-btn">Save &rarr;</button>
+      </div>
+      <div class="status" id="save-status"></div>
+
+      <p class="meta">
+        You can enter plain numbers or comma-formatted values.<br>
+        Open the media kit: <a href="/" target="_blank" rel="noopener">/</a>
+      </p>
+    </section>
+  </main>
+
+<script>
+  (function () {
+    const PASSWORD = 'ilovemybf';
+    const AUTH_KEY = 'mb-follower-admin-auth';
+    const STORAGE_KEY = 'mb-follower-counts';
+    const DEFAULT_COUNTS = { instagram: 3817, tiktok: 676 };
+
+    const loginSection = document.getElementById('login-section');
+    const adminSection = document.getElementById('admin-section');
+    const passwordInput = document.getElementById('password-input');
+    const unlockBtn = document.getElementById('unlock-btn');
+    const loginStatus = document.getElementById('login-status');
+    const igInput = document.getElementById('instagram-followers');
+    const ttInput = document.getElementById('tiktok-followers');
+    const saveBtn = document.getElementById('save-btn');
+    const saveStatus = document.getElementById('save-status');
+
+    function showStatus(el, message, type) {
+      el.textContent = message;
+      el.className = 'status show ' + (type || '');
+    }
+
+    function normalizeFollowerCount(value) {
+      const digitsOnly = String(value || '').replace(/[^\d]/g, '');
+      if (!digitsOnly) return null;
+      const num = Number(digitsOnly);
+      if (!Number.isFinite(num)) return null;
+      return Math.max(0, Math.round(num));
+    }
+
+    function formatCount(value) {
+      return Number(value).toLocaleString('en-US');
+    }
+
+    function readSavedCounts() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        if (!parsed || typeof parsed !== 'object') return { ...DEFAULT_COUNTS };
+        return {
+          instagram: normalizeFollowerCount(parsed.instagram) ?? DEFAULT_COUNTS.instagram,
+          tiktok: normalizeFollowerCount(parsed.tiktok) ?? DEFAULT_COUNTS.tiktok
+        };
+      } catch (err) {
+        return { ...DEFAULT_COUNTS };
+      }
+    }
+
+    function populateForm() {
+      const saved = readSavedCounts();
+      igInput.value = formatCount(saved.instagram);
+      ttInput.value = formatCount(saved.tiktok);
+    }
+
+    function unlock() {
+      if (passwordInput.value !== PASSWORD) {
+        showStatus(loginStatus, 'Incorrect password.', 'error');
+        passwordInput.focus();
+        passwordInput.select();
+        return;
+      }
+      sessionStorage.setItem(AUTH_KEY, '1');
+      loginSection.classList.add('hidden');
+      adminSection.classList.add('show');
+      populateForm();
+      igInput.focus();
+    }
+
+    function saveFollowers() {
+      const instagram = normalizeFollowerCount(igInput.value);
+      const tiktok = normalizeFollowerCount(ttInput.value);
+      if (instagram == null || tiktok == null) {
+        showStatus(saveStatus, 'Enter valid numbers for both platforms.', 'error');
+        return;
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        instagram: instagram,
+        tiktok: tiktok,
+        updatedAt: new Date().toISOString()
+      }));
+      igInput.value = formatCount(instagram);
+      ttInput.value = formatCount(tiktok);
+      showStatus(saveStatus, 'Saved. Refresh the media kit page to view changes.', 'ok');
+    }
+
+    unlockBtn.addEventListener('click', unlock);
+    passwordInput.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') unlock();
+    });
+
+    saveBtn.addEventListener('click', saveFollowers);
+    [igInput, ttInput].forEach(function (input) {
+      input.addEventListener('input', function () {
+        saveStatus.className = 'status';
+      });
+    });
+
+    if (sessionStorage.getItem(AUTH_KEY) === '1') {
+      loginSection.classList.add('hidden');
+      adminSection.classList.add('show');
+      populateForm();
+    } else {
+      passwordInput.focus();
+    }
+
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) document.documentElement.setAttribute('data-theme', 'dark');
+  })();
+</script>
+</body>
+</html>
