@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Update - Montreal Bites Media Kit</title>
+<link rel="icon" type="image/png" href="assets/favicon-round.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -298,8 +299,6 @@
     const PASSWORD = 'ilovemybf';
     const AUTH_KEY = 'mb-follower-admin-auth';
     const STORAGE_KEY = 'mb-follower-counts';
-    const DEFAULT_COUNTS = { instagram: 3817, tiktok: 676 };
-
     const loginSection = document.getElementById('login-section');
     const adminSection = document.getElementById('admin-section');
     const passwordInput = document.getElementById('password-input');
@@ -330,20 +329,25 @@
     function readSavedCounts() {
       try {
         const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-        if (!parsed || typeof parsed !== 'object') return { ...DEFAULT_COUNTS };
+        if (!parsed || typeof parsed !== 'object') return null;
+
+        const instagram = normalizeFollowerCount(parsed.instagram);
+        const tiktok = normalizeFollowerCount(parsed.tiktok);
+        if (instagram == null || tiktok == null) return null;
+
         return {
-          instagram: normalizeFollowerCount(parsed.instagram) ?? DEFAULT_COUNTS.instagram,
-          tiktok: normalizeFollowerCount(parsed.tiktok) ?? DEFAULT_COUNTS.tiktok
+          instagram: instagram,
+          tiktok: tiktok
         };
       } catch (err) {
-        return { ...DEFAULT_COUNTS };
+        return null;
       }
     }
 
     function populateForm() {
       const saved = readSavedCounts();
-      igInput.value = formatCount(saved.instagram);
-      ttInput.value = formatCount(saved.tiktok);
+      igInput.value = saved ? formatCount(saved.instagram) : '';
+      ttInput.value = saved ? formatCount(saved.tiktok) : '';
     }
 
     function unlock() {
