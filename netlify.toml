@@ -1,0 +1,36 @@
+# Netlify configuration for the Montréal Bites media kit.
+# Static site + serverless functions that power the secure admin and the
+# public /api/stats endpoint.
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Pretty URLs ------------------------------------------------------------
+[[redirects]]
+  from = "/api/stats"
+  to = "/.netlify/functions/stats"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
+# Security headers -------------------------------------------------------
+# NOTE: a strict Content-Security-Policy is intentionally omitted — the kit
+# uses inline <style>/<script> and loads Instagram/TikTok embed scripts and
+# iframes, which a locked-down CSP would break. The headers below are the
+# safe, high-value subset.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "same-origin"
+    X-Frame-Options = "DENY"
+
+# The admin must never be cached by shared caches.
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    Cache-Control = "no-store"

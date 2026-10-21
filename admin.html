@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Montreal Bites Media Kit</title>
+<link rel="icon" type="image/png" href="assets/favicon-round.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #f3ede2; --ink: #1a1714; --ink-soft: #4a423a;
+    --line: rgba(26,23,20,0.14); --line-strong: rgba(26,23,20,0.32);
+    --brick: #967969;
+    --bg: var(--ivory); --fg: var(--ink); --fg-soft: var(--ink-soft);
+    --accent: var(--brick);
+    --serif: "Fraunces","Times New Roman",serif;
+    --sans: "Inter Tight",-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono: "JetBrains Mono",ui-monospace,monospace;
+    --ok: #6a6a3d; --err: #a33d1d;
+  }
+  :root[data-theme="dark"] {
+    --bg:#161310; --fg:#f3ede2; --fg-soft:#b9ad97;
+    --line:rgba(243,237,226,0.14); --line-strong:rgba(243,237,226,0.35);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    min-height: 100vh; background: var(--bg); color: var(--fg);
+    font-family: var(--sans); font-size: 15px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 36px 24px 90px; }
+  .masthead {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 16px; border-bottom: 1px solid var(--fg); padding-bottom: 14px; margin-bottom: 22px;
+  }
+  .logo { font-family: var(--serif); font-size: 30px; font-weight: 500; letter-spacing: -0.015em; line-height: 1; }
+  .logo em { font-style: italic; font-weight: 400; color: var(--accent); }
+  .mh-meta { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-soft); }
+  .panel { border: 1px solid var(--line-strong); padding: 24px; margin-bottom: 20px; }
+  .section-no { display: inline-flex; font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-soft); margin-bottom: 8px; }
+  h1 { margin: 0 0 8px; font-family: var(--serif); font-size: clamp(32px,5vw,46px); font-weight: 300; line-height: 0.95; letter-spacing: -0.025em; }
+  h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+  h2 { margin: 0 0 4px; font-family: var(--serif); font-size: 24px; font-weight: 400; letter-spacing: -0.01em; }
+  .sub { margin: 0 0 22px; color: var(--fg-soft); max-width: 60ch; }
+  .note { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-soft); margin: 0 0 16px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-soft); margin-bottom: 6px; }
+  .field input {
+    width: 100%; border: 1px solid var(--fg); background: transparent; color: var(--fg);
+    padding: 10px 13px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.03em; outline: none;
+  }
+  .field input:focus { border-color: var(--accent); }
+  .field input[readonly] { border-style: dashed; color: var(--fg-soft); background: rgba(150,121,105,0.06); }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 16px; }
+  .row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0 12px; align-items: end; }
+  .btn { border: 0; background: var(--fg); color: var(--bg); padding: 12px 20px; font-family: var(--serif); font-size: 18px; letter-spacing: -0.01em; cursor: pointer; transition: background 0.2s ease; }
+  .btn:hover { background: var(--accent); }
+  .btn-ghost { background: transparent; color: var(--fg-soft); border: 1px solid var(--line-strong); font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; padding: 10px 16px; }
+  .btn-ghost:hover { background: transparent; color: var(--accent); border-color: var(--accent); }
+  .btn-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 8px; }
+  .status { margin-top: 14px; padding: 10px 12px; border: 1px dashed var(--line); font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; display: none; }
+  .status.show { display: block; }
+  .status.ok { border-color: var(--ok); color: var(--ok); }
+  .status.error { border-color: var(--err); color: var(--err); }
+  .hidden { display: none; }
+  .savebar { position: sticky; bottom: 0; background: var(--bg); border-top: 1px solid var(--line-strong); padding: 16px 0 4px; display: flex; justify-content: flex-end; gap: 12px; align-items: center; }
+  /* Chrome-style tabs */
+  .tabs { display: flex; gap: 4px; align-items: flex-end; border-bottom: 1px solid var(--line-strong); margin-bottom: 22px; padding-top: 4px; }
+  .tab {
+    border: 1px solid var(--line-strong); border-bottom: 0; background: transparent; color: var(--fg-soft);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 11px 20px; border-radius: 10px 10px 0 0; cursor: pointer; position: relative; bottom: -1px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .tab:hover { color: var(--fg); }
+  .tab.active { background: var(--bg); color: var(--fg); border-color: var(--line-strong); border-bottom: 1px solid var(--bg); font-weight: 500; }
+  .tabpanel { display: none; }
+  .tabpanel.active { display: block; }
+  /* Posts editor */
+  .post-card { border: 1px solid var(--line-strong); padding: 20px; margin-bottom: 16px; display: grid; grid-template-columns: 150px 1fr; gap: 20px; }
+  .post-num { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-soft); grid-column: 1 / -1; margin-bottom: -6px; }
+  .post-thumb { aspect-ratio: 3/4; border: 1px solid var(--line); background: var(--line) center/cover no-repeat; border-radius: 8px; overflow: hidden; display: flex; align-items: flex-end; }
+  .post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .post-upload { width: 100%; }
+  .post-upload label.filebtn {
+    display: block; text-align: center; border: 1px dashed var(--line-strong); color: var(--fg-soft);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 9px 8px; margin-top: 8px; cursor: pointer; border-radius: 6px;
+  }
+  .post-upload label.filebtn:hover { border-color: var(--accent); color: var(--accent); }
+  .post-upload input[type=file] { display: none; }
+  .post-fields { display: block; }
+  @media (max-width: 620px) { .post-card { grid-template-columns: 1fr; } }
+  @media (max-width: 620px) {
+    .wrap { padding: 24px 16px 70px; }
+    .panel { padding: 18px; }
+    .grid, .grid-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="masthead">
+    <div class="logo">Montreal <em>Bites</em></div>
+    <span class="mh-meta">Media Kit Admin</span>
+  </header>
+
+  <!-- LOGIN -->
+  <section class="panel" id="login-panel">
+    <span class="section-no">&sect; 00 — Access</span>
+    <h1>Unlock <em>editor</em>.</h1>
+    <p class="sub">Enter your admin password to update the media kit figures. Your password is verified on the server and is never stored in this page.</p>
+    <div class="field">
+      <label for="password-input">Password</label>
+      <input id="password-input" type="password" autocomplete="current-password" placeholder="Enter password">
+    </div>
+    <div class="btn-row"><span></span><button class="btn" id="unlock-btn">Unlock &rarr;</button></div>
+    <div class="status" id="login-status"></div>
+  </section>
+
+  <!-- EDITOR -->
+  <section class="hidden" id="editor">
+    <p class="note" id="updated-note"></p>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" id="tab-btn-analytics" data-tab="analytics" role="tab">Analytics</button>
+      <button class="tab" id="tab-btn-posts" data-tab="posts" role="tab">Posts</button>
+    </div>
+
+    <div class="tabpanel active" id="tab-analytics" role="tabpanel">
+      <div id="form-root"></div>
+    </div>
+    <div class="tabpanel" id="tab-posts" role="tabpanel">
+      <div id="posts-root"></div>
+    </div>
+
+    <div class="savebar">
+      <button class="btn-ghost" id="logout-btn" type="button">Log out</button>
+      <button class="btn" id="save-btn" type="button">Save changes &rarr;</button>
+    </div>
+    <div class="status" id="save-status"></div>
+    <p class="note" style="margin-top:16px;">Open the media kit: <a href="/" target="_blank" rel="noopener" style="color:var(--accent);">/</a></p>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---- schema: mirrors the Instagram Insights app screens -----------------
+  // type: 'num' | 'str' | 'calc' (read-only computed)
+  const SCHEMA = [
+    { title: "Instagram — Profile & Highlights", note: "From your profile + chosen highlights",
+      fields: [
+        { p: "ig.followers", l: "Total followers", t: "num" },
+        { p: "ig.followersGrowth", l: "Follower growth", t: "str" },
+        { p: "ig.followersSince", l: "Growing since", t: "str" },
+        { p: "ig.collabs", l: "Brand collaborations", t: "num" },
+        { p: "ig.avgViews", l: "Avg. views / reel (number)", t: "str" },
+        { p: "ig.avgViewsUnit", l: "Avg. views unit (e.g. K)", t: "str" },
+        { p: "ig.peakReel", l: "Peak reel (display, e.g. 183K)", t: "str" },
+        { p: "ig.peakReelViews", l: "Peak reel views (number, for counter)", t: "num" },
+        { p: "ig.peakReelHits", l: "5K–10K+ hits label", t: "str" },
+        { p: "ig.peakReelLabel", l: "Peak reel caption (§01)", t: "str" },
+        { p: "ig.viralViews", l: "Viral post — sends/views", t: "str" },
+        { p: "ig.viralSource", l: "Viral post — source", t: "str" },
+        { p: "ig.viralMonth", l: "Viral post — month", t: "str" }
+      ] },
+    { title: "Instagram — Overview (last 30 days)", note: "Insights → Overview tab",
+      fields: [
+        { p: "ig.views30", l: "Views", t: "num" },
+        { p: "ig.netFollowers", l: "Net followers (e.g. +44)", t: "str" },
+        { p: "ig.interactions", l: "Interactions", t: "num" },
+        { p: "ig.viewers", l: "Viewers (reach)", t: "num" },
+        { p: "ig.pctFollowers", l: "% followers", t: "num" },
+        { p: "ig.pctNonFollowers", l: "% non-followers", t: "num" },
+        { p: "ig.viewsReels", l: "Views — Reels", t: "str" },
+        { p: "ig.viewsStories", l: "Views — Stories", t: "str" },
+        { p: "ig.viewsPosts", l: "Views — Posts", t: "str" },
+        { p: "ig.viewsLive", l: "Views — Live", t: "str" },
+        { p: "ig.intReels", l: "Interactions — Reels", t: "str" },
+        { p: "ig.intStories", l: "Interactions — Stories", t: "str" },
+        { p: "ig.intPosts", l: "Interactions — Posts", t: "str" },
+        { p: "ig.intLive", l: "Interactions — Live", t: "str" },
+        { p: "ig.profileVisits", l: "Profile visits", t: "str" },
+        { p: "ig.bioLinkTaps", l: "Bio link taps", t: "str" }
+      ] },
+    { title: "Instagram — Engagement rate", note: "Auto-calculated: interactions ÷ viewers (reach) × 100",
+      fields: [
+        { p: "ig.engagementRate", l: "Engagement rate % (auto)", t: "calc" },
+        { p: "ig.benchmark", l: "Benchmark % (editable)", t: "num" },
+        { p: "__multiplier", l: "Multiplier vs benchmark (auto)", t: "calc" }
+      ] },
+    { title: "TikTok", note: "From TikTok Studio → Analytics",
+      fields: [
+        { p: "tt.followers", l: "Followers", t: "num" },
+        { p: "tt.postViews", l: "Post views (number)", t: "str" },
+        { p: "tt.postViewsUnit", l: "Post views unit (e.g. K)", t: "str" },
+        { p: "tt.views28", l: "28-day views", t: "str" },
+        { p: "tt.growth28", l: "28-day growth", t: "str" },
+        { p: "tt.likes", l: "Likes (number)", t: "str" },
+        { p: "tt.likesUnit", l: "Likes unit (e.g. K)", t: "str" },
+        { p: "tt.shares", l: "Shares", t: "str" },
+        { p: "tt.comments", l: "Comments", t: "str" },
+        { p: "tt.viewers", l: "Total viewers (number)", t: "str" },
+        { p: "tt.viewersUnit", l: "Viewers unit (e.g. K)", t: "str" },
+        { p: "tt.newViewers", l: "New viewers", t: "str" },
+        { p: "tt.genderF", l: "Gender (e.g. 76% F)", t: "str" },
+        { p: "tt.fyp", l: "For You page %", t: "str" },
+        { p: "tt.search", l: "Search %", t: "str" },
+        { p: "tt.profile", l: "Profile %", t: "str" }
+      ] }
+  ];
+
+  // array sections: name → { path, cols:[{key,label}], count }
+  const ARRAYS = [
+    { title: "Instagram — Gender", note: "Audience tab", kind: "gender" },
+    { title: "Instagram — Age range", note: "Audience tab (enter the % per bucket)", path: "ig.ages", cols: [{ k: "label", l: "Bucket" }, { k: "pct", l: "%" }] },
+    { title: "Instagram — Top locations", note: "Audience tab", path: "ig.locations", cols: [{ k: "name", l: "Country" }, { k: "pct", l: "%" }] },
+    { title: "Instagram — Top languages", note: "Audience tab", path: "ig.languages", cols: [{ k: "name", l: "Language" }, { k: "pct", l: "%" }] },
+    { title: "Instagram — Top posting windows", note: "Best times to post", path: "ig.windows", cols: [{ k: "day", l: "Day" }, { k: "time", l: "Window" }] }
+  ];
+
+  var state = null; // current stats object
+
+  // ---- element refs -------------------------------------------------------
+  var loginPanel = document.getElementById("login-panel");
+  var editor = document.getElementById("editor");
+  var pwInput = document.getElementById("password-input");
+  var unlockBtn = document.getElementById("unlock-btn");
+  var loginStatus = document.getElementById("login-status");
+  var formRoot = document.getElementById("form-root");
+  var postsRoot = document.getElementById("posts-root");
+  var saveBtn = document.getElementById("save-btn");
+  var saveStatus = document.getElementById("save-status");
+  var logoutBtn = document.getElementById("logout-btn");
+  var updatedNote = document.getElementById("updated-note");
+
+  function showStatus(el, msg, type) { el.textContent = msg; el.className = "status show " + (type || ""); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+
+  function getPath(obj, path) {
+    return path.split(".").reduce(function (o, k) { return o == null ? undefined : o[k]; }, obj);
+  }
+  function setPath(obj, path, val) {
+    var ks = path.split("."); var o = obj;
+    for (var i = 0; i < ks.length - 1; i++) { if (o[ks[i]] == null) o[ks[i]] = {}; o = o[ks[i]]; }
+    o[ks[ks.length - 1]] = val;
+  }
+
+  function fieldId(path) { return "f_" + path.replace(/[^\w]/g, "_"); }
+
+  // ---- rendering ----------------------------------------------------------
+  function render() {
+    var html = "";
+    SCHEMA.forEach(function (sec) {
+      html += '<section class="panel"><h2>' + esc(sec.title) + '</h2><p class="note">' + esc(sec.note) + '</p><div class="grid">';
+      sec.fields.forEach(function (f) {
+        var val = f.p === "__multiplier" ? "" : getPath(state, f.p);
+        var ro = f.t === "calc" ? " readonly" : "";
+        html += '<div class="field"><label for="' + fieldId(f.p) + '">' + esc(f.l) + '</label>' +
+          '<input id="' + fieldId(f.p) + '" data-path="' + esc(f.p) + '" data-type="' + f.t + '" value="' + esc(val == null ? "" : val) + '"' + ro + '></div>';
+      });
+      html += '</div></section>';
+    });
+
+    ARRAYS.forEach(function (sec) {
+      html += '<section class="panel"><h2>' + esc(sec.title) + '</h2><p class="note">' + esc(sec.note) + '</p>';
+      if (sec.kind === "gender") {
+        html += '<div class="grid">' +
+          '<div class="field"><label>Women %</label><input data-path="ig.gender.women" data-type="num" value="' + esc(getPath(state, "ig.gender.women")) + '"></div>' +
+          '<div class="field"><label>Men %</label><input data-path="ig.gender.men" data-type="num" value="' + esc(getPath(state, "ig.gender.men")) + '"></div>' +
+          '</div>';
+      } else {
+        var rows = getPath(state, sec.path) || [];
+        rows.forEach(function (row, i) {
+          html += '<div class="row">';
+          sec.cols.forEach(function (c) {
+            var dtype = c.k === "pct" ? "num" : "str";
+            html += '<div class="field"><label>' + esc(c.l) + '</label><input data-path="' + esc(sec.path) + "." + i + "." + c.k + '" data-type="' + dtype + '" value="' + esc(row[c.k] == null ? "" : row[c.k]) + '"></div>';
+          });
+          html += '</div>';
+        });
+      }
+      html += '</section>';
+    });
+
+    // verified date at the end
+    html += '<section class="panel"><h2>Footer</h2><p class="note">Shown as “Data verified …”</p><div class="field" style="max-width:260px;"><label>Data verified</label><input data-path="verified" data-type="str" value="' + esc(state.verified) + '"></div></section>';
+
+    formRoot.innerHTML = html;
+
+    // wire inputs → state
+    formRoot.querySelectorAll("input[data-path]").forEach(function (inp) {
+      inp.addEventListener("input", function () {
+        var path = inp.getAttribute("data-path");
+        if (!path || path === "__multiplier") return;
+        var type = inp.getAttribute("data-type");
+        var v = inp.value;
+        if (type === "num") {
+          var n = Number(String(v).replace(/,/g, "").trim());
+          v = Number.isFinite(n) ? Math.max(0, n) : 0;
+        }
+        setPath(state, path, v);
+        recalcEngagement();
+      });
+    });
+    recalcEngagement();
+  }
+
+  // ---- Posts tab ----------------------------------------------------------
+  function postThumbStyle(src) {
+    return src ? ' style="background-image:url(\'' + esc(src).replace(/'/g, "%27") + "')\"" : "";
+  }
+
+  function renderPosts() {
+    var posts = Array.isArray(state.posts) ? state.posts : [];
+    var html = '<p class="note">These are the six films in the “Recent films” grid. ' +
+      'Paste an Instagram or TikTok link, fill in the caption, and upload a cover image. ' +
+      'Changes go live when you press Save.</p>';
+    posts.forEach(function (p, i) {
+      p = p || {};
+      html += '<div class="post-card">' +
+        '<div class="post-num">Post ' + (i + 1) + '</div>' +
+        '<div class="post-upload">' +
+          '<div class="post-thumb" id="thumb_' + i + '"' + postThumbStyle(p.image) + '></div>' +
+          '<label class="filebtn" for="img_' + i + '">Upload image</label>' +
+          '<input type="file" id="img_' + i + '" accept="image/*" data-index="' + i + '">' +
+        '</div>' +
+        '<div class="post-fields">' +
+          '<div class="field"><label>Instagram / TikTok link</label>' +
+            '<input data-path="posts.' + i + '.url" data-type="str" value="' + esc(p.url || "") + '" placeholder="https://www.instagram.com/reel/…"></div>' +
+          '<div class="field"><label>Tag (small label above title)</label>' +
+            '<input data-path="posts.' + i + '.tag" data-type="str" value="' + esc(p.tag || "") + '" placeholder="Collab · Café"></div>' +
+          '<div class="field"><label>Title</label>' +
+            '<input data-path="posts.' + i + '.title" data-type="str" value="' + esc(p.title || "") + '" placeholder="Crew Cafe."></div>' +
+          '<div class="field"><label>Views (optional — leave blank to hide)</label>' +
+            '<input data-path="posts.' + i + '.views" data-type="str" value="' + esc(p.views || "") + '" placeholder="183K views · organic"></div>' +
+        '</div>' +
+      '</div>';
+    });
+    postsRoot.innerHTML = html;
+
+    // text inputs → state
+    postsRoot.querySelectorAll("input[data-path]").forEach(function (inp) {
+      inp.addEventListener("input", function () {
+        setPath(state, inp.getAttribute("data-path"), inp.value);
+      });
+    });
+    // image uploads → downscale → data URL → state + preview
+    postsRoot.querySelectorAll('input[type="file"]').forEach(function (inp) {
+      inp.addEventListener("change", function () {
+        var file = inp.files && inp.files[0];
+        if (!file) return;
+        var idx = Number(inp.getAttribute("data-index"));
+        downscaleImage(file, function (dataUrl) {
+          if (!state.posts[idx]) state.posts[idx] = {};
+          state.posts[idx].image = dataUrl;
+          var thumb = document.getElementById("thumb_" + idx);
+          if (thumb) thumb.style.backgroundImage = "url('" + dataUrl + "')";
+        });
+      });
+    });
+  }
+
+  // Resize a selected image to a sensible thumbnail (max 900px, JPEG) so the
+  // stored data URL stays small enough to live in the stats JSON.
+  function downscaleImage(file, done) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        var MAX = 900;
+        var w = img.width, h = img.height;
+        if (w > MAX || h > MAX) {
+          if (w >= h) { h = Math.round(h * (MAX / w)); w = MAX; }
+          else { w = Math.round(w * (MAX / h)); h = MAX; }
+        }
+        var canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        try { done(canvas.toDataURL("image/jpeg", 0.82)); }
+        catch (e) { done(reader.result); }
+      };
+      img.onerror = function () { done(reader.result); };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ---- tabs ---------------------------------------------------------------
+  function initTabs() {
+    document.querySelectorAll(".tab").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var name = btn.getAttribute("data-tab");
+        document.querySelectorAll(".tab").forEach(function (b) { b.classList.toggle("active", b === btn); });
+        document.querySelectorAll(".tabpanel").forEach(function (pnl) {
+          pnl.classList.toggle("active", pnl.id === "tab-" + name);
+        });
+      });
+    });
+  }
+
+  // ---- engagement rate = interactions ÷ viewers × 100 ---------------------
+  function recalcEngagement() {
+    var interactions = Number(getPath(state, "ig.interactions")) || 0;
+    var viewers = Number(getPath(state, "ig.viewers")) || 0;
+    var benchmark = Number(getPath(state, "ig.benchmark")) || 0;
+    var er = viewers > 0 ? (interactions / viewers) * 100 : 0;
+    er = Math.round(er * 10) / 10; // 1 decimal
+    setPath(state, "ig.engagementRate", er);
+
+    var erInput = formRoot.querySelector('input[data-path="ig.engagementRate"]');
+    if (erInput) erInput.value = er;
+    var multInput = formRoot.querySelector('input[data-path="__multiplier"]');
+    if (multInput) multInput.value = benchmark > 0 ? (Math.round((er / benchmark) * 10) / 10) + "×" : "—";
+  }
+
+  // ---- auth + data flow ---------------------------------------------------
+  function loadStats() {
+    return fetch("/api/stats", { cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        state = data;
+        if (!Array.isArray(state.posts)) state.posts = [];
+        render();
+        renderPosts();
+        if (state.updatedAt) updatedNote.textContent = "Last saved: " + new Date(state.updatedAt).toLocaleString();
+      });
+  }
+
+  function openEditor() {
+    loginPanel.classList.add("hidden");
+    editor.classList.remove("hidden");
+    loadStats();
+  }
+
+  function unlock() {
+    var pw = pwInput.value;
+    if (!pw) { showStatus(loginStatus, "Enter your password.", "error"); return; }
+    showStatus(loginStatus, "Checking…", "");
+    fetch("/.netlify/functions/admin-login", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ password: pw })
+    }).then(function (r) {
+      if (r.ok) { pwInput.value = ""; loginStatus.className = "status"; openEditor(); }
+      else { showStatus(loginStatus, "Incorrect password.", "error"); pwInput.focus(); pwInput.select(); }
+    }).catch(function () { showStatus(loginStatus, "Network error. Try again.", "error"); });
+  }
+
+  function save() {
+    showStatus(saveStatus, "Saving…", "");
+    fetch("/.netlify/functions/admin-save", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ data: state })
+    }).then(function (r) {
+      if (r.status === 401) { showStatus(saveStatus, "Session expired — refresh and log in again.", "error"); return null; }
+      if (!r.ok) { showStatus(saveStatus, "Save failed.", "error"); return null; }
+      return r.json();
+    }).then(function (res) {
+      if (!res) return;
+      state = res.data;
+      showStatus(saveStatus, "Saved. The media kit now shows these figures.", "ok");
+      if (state.updatedAt) updatedNote.textContent = "Last saved: " + new Date(state.updatedAt).toLocaleString();
+    }).catch(function () { showStatus(saveStatus, "Network error while saving.", "error"); });
+  }
+
+  function logout() {
+    fetch("/.netlify/functions/admin-logout", { method: "POST", credentials: "same-origin" })
+      .finally(function () { location.reload(); });
+  }
+
+  initTabs();
+  unlockBtn.addEventListener("click", unlock);
+  pwInput.addEventListener("keydown", function (e) { if (e.key === "Enter") unlock(); });
+  saveBtn.addEventListener("click", save);
+  logoutBtn.addEventListener("click", logout);
+
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+  pwInput.focus();
+})();
+</script>
+</body>
+</html>
