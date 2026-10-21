@@ -25,7 +25,9 @@ export default async () => {
     status: 200,
     headers: {
       'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'public, max-age=60, stale-while-revalidate=300'
+      // Always serve fresh figures so admin edits appear on the site immediately.
+      'cache-control': 'no-store, max-age=0',
+      'netlify-cdn-cache-control': 'no-store'
     }
   });
 };
