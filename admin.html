@@ -96,6 +96,9 @@
   .post-upload input[type=file] { display: none; }
   .post-fields { display: block; }
   @media (max-width: 620px) { .post-card { grid-template-columns: 1fr; } }
+  /* Audience sub-section headings */
+  .aud-h { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg); margin: 24px 0 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .aud-h:first-of-type { border-top: 0; padding-top: 0; margin-top: 8px; }
   @media (max-width: 620px) {
     .wrap { padding: 24px 16px 70px; }
     .panel { padding: 18px; }
@@ -155,75 +158,48 @@
   // ---- schema: mirrors the Instagram Insights app screens -----------------
   // type: 'num' | 'str' | 'calc' (read-only computed)
   const SCHEMA = [
-    { title: "Instagram — Profile & Highlights", note: "From your profile + chosen highlights",
+    { title: "Instagram Analytics", note: "Everything on the Instagram card. Growth & Since update automatically when you save a new follower count.",
       fields: [
-        { p: "ig.followers", l: "Total followers", t: "num" },
-        { p: "ig.followersGrowth", l: "Follower growth", t: "str" },
-        { p: "ig.followersSince", l: "Growing since", t: "str" },
-        { p: "ig.collabs", l: "Brand collaborations", t: "num" },
-        { p: "ig.avgViews", l: "Avg. views / reel (number)", t: "str" },
-        { p: "ig.avgViewsUnit", l: "Avg. views unit (e.g. K)", t: "str" },
-        { p: "ig.peakReel", l: "Peak reel (display, e.g. 183K)", t: "str" },
-        { p: "ig.peakReelViews", l: "Peak reel views (number, for counter)", t: "num" },
-        { p: "ig.peakReelHits", l: "5K–10K+ hits label", t: "str" },
-        { p: "ig.peakReelLabel", l: "Peak reel caption (§01)", t: "str" },
-        { p: "ig.viralViews", l: "Viral post — sends/views", t: "str" },
-        { p: "ig.viralSource", l: "Viral post — source", t: "str" },
-        { p: "ig.viralMonth", l: "Viral post — month", t: "str" }
+        { p: "ig.followers", l: "Followers", t: "num", ph: "e.g. 3817" },
+        { p: "ig.avgViews", l: "Views (K)", t: "str", ph: "e.g. 2.8" },
+        { p: "ig.peakReelViews", l: "Most viewed reel — total views", t: "num", ph: "e.g. 183000" },
+        { p: "ig.peakReelHits", l: "5K–10K+ hits", t: "str", ph: "e.g. Multiple" },
+        { p: "ig.engagementRate", l: "Engagement rate %", t: "num", ph: "e.g. 8.1" },
+        { p: "ig.benchmark", l: "Benchmark %", t: "num", ph: "e.g. 1.7" },
+        { p: "ig.viralViews", l: "Top reel — direct sends", t: "str", ph: "e.g. 7,698" },
+        { p: "ig.viralSource", l: "Top reel — source", t: "str", ph: "e.g. Crème Mood" },
+        { p: "ig.viralMonth", l: "Top reel — month", t: "str", ph: "e.g. Oct 2025" },
+        { p: "ig.peakReelLabel", l: "Most viewed reel — caption", t: "str", ph: "e.g. Crème Mood MTL · 100% organic" }
       ] },
-    { title: "Instagram — Overview (last 30 days)", note: "Insights → Overview tab",
+    { title: "TikTok Analytics", note: "Everything on the TikTok card.",
       fields: [
-        { p: "ig.views30", l: "Views", t: "num" },
-        { p: "ig.netFollowers", l: "Net followers (e.g. +44)", t: "str" },
-        { p: "ig.interactions", l: "Interactions", t: "num" },
-        { p: "ig.viewers", l: "Viewers (reach)", t: "num" },
-        { p: "ig.pctFollowers", l: "% followers", t: "num" },
-        { p: "ig.pctNonFollowers", l: "% non-followers", t: "num" },
-        { p: "ig.viewsReels", l: "Views — Reels", t: "str" },
-        { p: "ig.viewsStories", l: "Views — Stories", t: "str" },
-        { p: "ig.viewsPosts", l: "Views — Posts", t: "str" },
-        { p: "ig.viewsLive", l: "Views — Live", t: "str" },
-        { p: "ig.intReels", l: "Interactions — Reels", t: "str" },
-        { p: "ig.intStories", l: "Interactions — Stories", t: "str" },
-        { p: "ig.intPosts", l: "Interactions — Posts", t: "str" },
-        { p: "ig.intLive", l: "Interactions — Live", t: "str" },
-        { p: "ig.profileVisits", l: "Profile visits", t: "str" },
-        { p: "ig.bioLinkTaps", l: "Bio link taps", t: "str" }
-      ] },
-    { title: "Instagram — Engagement rate", note: "Auto-calculated: interactions ÷ viewers (reach) × 100",
-      fields: [
-        { p: "ig.engagementRate", l: "Engagement rate % (auto)", t: "calc" },
-        { p: "ig.benchmark", l: "Benchmark % (editable)", t: "num" },
-        { p: "__multiplier", l: "Multiplier vs benchmark (auto)", t: "calc" }
-      ] },
-    { title: "TikTok", note: "From TikTok Studio → Analytics",
-      fields: [
-        { p: "tt.followers", l: "Followers", t: "num" },
-        { p: "tt.postViews", l: "Post views (number)", t: "str" },
-        { p: "tt.postViewsUnit", l: "Post views unit (e.g. K)", t: "str" },
-        { p: "tt.views28", l: "28-day views", t: "str" },
-        { p: "tt.growth28", l: "28-day growth", t: "str" },
-        { p: "tt.likes", l: "Likes (number)", t: "str" },
-        { p: "tt.likesUnit", l: "Likes unit (e.g. K)", t: "str" },
-        { p: "tt.shares", l: "Shares", t: "str" },
-        { p: "tt.comments", l: "Comments", t: "str" },
-        { p: "tt.viewers", l: "Total viewers (number)", t: "str" },
-        { p: "tt.viewersUnit", l: "Viewers unit (e.g. K)", t: "str" },
-        { p: "tt.newViewers", l: "New viewers", t: "str" },
-        { p: "tt.genderF", l: "Gender (e.g. 76% F)", t: "str" },
-        { p: "tt.fyp", l: "For You page %", t: "str" },
-        { p: "tt.search", l: "Search %", t: "str" },
-        { p: "tt.profile", l: "Profile %", t: "str" }
+        { p: "tt.followers", l: "Followers", t: "num", ph: "e.g. 676" },
+        { combo: ["tt.postViews", "tt.postViewsUnit"], l: "Post views", t: "combo", ph: "e.g. 676K" },
+        { p: "tt.views28", l: "28-day views", t: "str", ph: "e.g. 38K" },
+        { p: "tt.growth28", l: "28-day growth", t: "str", ph: "e.g. +38.7%" },
+        { combo: ["tt.likes", "tt.likesUnit"], l: "Likes", t: "combo", ph: "e.g. 28K" },
+        { p: "tt.shares", l: "Shares", t: "str", ph: "e.g. 8,423" },
+        { p: "tt.comments", l: "Comments", t: "str", ph: "e.g. 248" },
+        { combo: ["tt.viewers", "tt.viewersUnit"], l: "Total viewers", t: "combo", ph: "e.g. 547K" },
+        { p: "tt.newViewers", l: "New viewers", t: "str", ph: "e.g. 290K" },
+        { p: "tt.genderF", l: "Gender", t: "str", ph: "e.g. 76% F" },
+        { p: "tt.fyp", l: "For You page %", t: "str", ph: "e.g. 79.7" },
+        { p: "tt.search", l: "Search %", t: "str", ph: "e.g. 15.8%" },
+        { p: "tt.profile", l: "Profile %", t: "str", ph: "e.g. 4.4%" }
       ] }
   ];
 
-  // array sections: name → { path, cols:[{key,label}], count }
-  const ARRAYS = [
-    { title: "Instagram — Gender", note: "Audience tab", kind: "gender" },
-    { title: "Instagram — Age range", note: "Audience tab (enter the % per bucket)", path: "ig.ages", cols: [{ k: "label", l: "Bucket" }, { k: "pct", l: "%" }] },
-    { title: "Instagram — Top locations", note: "Audience tab", path: "ig.locations", cols: [{ k: "name", l: "Country" }, { k: "pct", l: "%" }] },
-    { title: "Instagram — Top languages", note: "Audience tab", path: "ig.languages", cols: [{ k: "name", l: "Language" }, { k: "pct", l: "%" }] },
-    { title: "Instagram — Top posting windows", note: "Best times to post", path: "ig.windows", cols: [{ k: "day", l: "Day" }, { k: "time", l: "Window" }] }
+  // Audience sub-sections — all rendered together under one "Audience" panel.
+  // `fixed: true` locks a column (e.g. the age buckets never change).
+  const AUDIENCE = [
+    { label: "Age distribution", path: "ig.ages", note: "The age buckets are fixed — just enter the % for each.",
+      cols: [{ k: "label", l: "Age", fixed: true }, { k: "pct", l: "%", pct: true }] },
+    { label: "Top locations", path: "ig.locations", note: "Country name + its % of audience.",
+      cols: [{ k: "name", l: "Country" }, { k: "pct", l: "%", pct: true }] },
+    { label: "Top languages", path: "ig.languages", note: "Language + its % of audience.",
+      cols: [{ k: "name", l: "Language" }, { k: "pct", l: "%", pct: true }] },
+    { label: "Best posting windows", path: "ig.windows", note: "Day + the time window (e.g. 6–9PM).",
+      cols: [{ k: "day", l: "Day" }, { k: "time", l: "Window" }] }
   ];
 
   var state = null; // current stats object
@@ -261,37 +237,47 @@
     SCHEMA.forEach(function (sec) {
       html += '<section class="panel"><h2>' + esc(sec.title) + '</h2><p class="note">' + esc(sec.note) + '</p><div class="grid">';
       sec.fields.forEach(function (f) {
+        var ph = f.ph ? ' placeholder="' + esc(f.ph) + '"' : '';
+        // Combined "number + unit" field (e.g. 2.8 + K → one "2.8K" box)
+        if (f.combo) {
+          var numV = getPath(state, f.combo[0]); var unitV = getPath(state, f.combo[1]);
+          var cval = (numV == null ? "" : numV) + (unitV == null ? "" : unitV);
+          html += '<div class="field"><label>' + esc(f.l) + '</label>' +
+            '<input data-combo="' + esc(f.combo[0] + "|" + f.combo[1]) + '" value="' + esc(cval) + '"' + ph + '></div>';
+          return;
+        }
         var val = f.p === "__multiplier" ? "" : getPath(state, f.p);
         var ro = f.t === "calc" ? " readonly" : "";
         html += '<div class="field"><label for="' + fieldId(f.p) + '">' + esc(f.l) + '</label>' +
-          '<input id="' + fieldId(f.p) + '" data-path="' + esc(f.p) + '" data-type="' + f.t + '" value="' + esc(val == null ? "" : val) + '"' + ro + '></div>';
+          '<input id="' + fieldId(f.p) + '" data-path="' + esc(f.p) + '" data-type="' + f.t + '" value="' + esc(val == null ? "" : val) + '"' + ro + ph + '></div>';
       });
       html += '</div></section>';
     });
 
-    ARRAYS.forEach(function (sec) {
-      html += '<section class="panel"><h2>' + esc(sec.title) + '</h2><p class="note">' + esc(sec.note) + '</p>';
-      if (sec.kind === "gender") {
-        html += '<div class="grid">' +
-          '<div class="field"><label>Women %</label><input data-path="ig.gender.women" data-type="num" value="' + esc(getPath(state, "ig.gender.women")) + '"></div>' +
-          '<div class="field"><label>Men %</label><input data-path="ig.gender.men" data-type="num" value="' + esc(getPath(state, "ig.gender.men")) + '"></div>' +
-          '</div>';
-      } else {
-        var rows = getPath(state, sec.path) || [];
-        rows.forEach(function (row, i) {
-          html += '<div class="row">';
-          sec.cols.forEach(function (c) {
-            var dtype = c.k === "pct" ? "num" : "str";
-            html += '<div class="field"><label>' + esc(c.l) + '</label><input data-path="' + esc(sec.path) + "." + i + "." + c.k + '" data-type="' + dtype + '" value="' + esc(row[c.k] == null ? "" : row[c.k]) + '"></div>';
-          });
-          html += '</div>';
+    // ---- Audience: one panel, clear sub-sections ----
+    html += '<section class="panel"><span class="section-no">&sect; Audience</span><h2>Audience</h2>' +
+      '<p class="note">From Instagram Insights &rarr; Audience.</p>';
+    // Gender split
+    html += '<h3 class="aud-h">Gender split</h3><div class="grid">' +
+      '<div class="field"><label>Women %</label><input data-path="ig.gender.women" data-type="num" value="' + esc(getPath(state, "ig.gender.women")) + '"></div>' +
+      '<div class="field"><label>Men %</label><input data-path="ig.gender.men" data-type="num" value="' + esc(getPath(state, "ig.gender.men")) + '"></div>' +
+      '</div>';
+    // Age, locations, languages, posting windows
+    AUDIENCE.forEach(function (sec) {
+      html += '<h3 class="aud-h">' + esc(sec.label) + '</h3>';
+      if (sec.note) html += '<p class="note" style="margin-top:-4px;">' + esc(sec.note) + '</p>';
+      var rows = getPath(state, sec.path) || [];
+      rows.forEach(function (row, i) {
+        html += '<div class="row">';
+        sec.cols.forEach(function (c) {
+          var dtype = c.pct ? "num" : "str";
+          var ro = c.fixed ? " readonly" : "";
+          html += '<div class="field"><label>' + esc(c.l) + '</label><input data-path="' + esc(sec.path) + "." + i + "." + c.k + '" data-type="' + dtype + '" value="' + esc(row[c.k] == null ? "" : row[c.k]) + '"' + ro + '></div>';
         });
-      }
-      html += '</section>';
+        html += '</div>';
+      });
     });
-
-    // verified date at the end
-    html += '<section class="panel"><h2>Footer</h2><p class="note">Shown as “Data verified …”</p><div class="field" style="max-width:260px;"><label>Data verified</label><input data-path="verified" data-type="str" value="' + esc(state.verified) + '"></div></section>';
+    html += '</section>';
 
     formRoot.innerHTML = html;
 
@@ -308,6 +294,16 @@
         }
         setPath(state, path, v);
         recalcEngagement();
+      });
+    });
+
+    // combined number+unit inputs → split back into their two paths
+    formRoot.querySelectorAll("input[data-combo]").forEach(function (inp) {
+      inp.addEventListener("input", function () {
+        var parts = inp.getAttribute("data-combo").split("|");
+        var m = String(inp.value).trim().match(/^([\d.,]*)\s*(.*)$/);
+        setPath(state, parts[0], m ? m[1].trim() : inp.value);
+        setPath(state, parts[1], m ? m[2].trim() : "");
       });
     });
     recalcEngagement();
@@ -406,17 +402,10 @@
     });
   }
 
-  // ---- engagement rate = interactions ÷ viewers × 100 ---------------------
+  // ---- multiplier = engagement rate ÷ benchmark (rate is entered directly) --
   function recalcEngagement() {
-    var interactions = Number(getPath(state, "ig.interactions")) || 0;
-    var viewers = Number(getPath(state, "ig.viewers")) || 0;
+    var er = Number(getPath(state, "ig.engagementRate")) || 0;
     var benchmark = Number(getPath(state, "ig.benchmark")) || 0;
-    var er = viewers > 0 ? (interactions / viewers) * 100 : 0;
-    er = Math.round(er * 10) / 10; // 1 decimal
-    setPath(state, "ig.engagementRate", er);
-
-    var erInput = formRoot.querySelector('input[data-path="ig.engagementRate"]');
-    if (erInput) erInput.value = er;
     var multInput = formRoot.querySelector('input[data-path="__multiplier"]');
     if (multInput) multInput.value = benchmark > 0 ? (Math.round((er / benchmark) * 10) / 10) + "×" : "—";
   }

@@ -18,8 +18,11 @@ export const DEFAULT_STATS = {
   ig: {
     // Profile + headline
     followers: 3817,
-    followersGrowth: '+2.3%',
-    followersSince: 'Jan 2025',
+    followersGrowth: '+2.3%',   // auto-derived from followerHistory on save
+    followersSince: 'Jan 2025', // auto-set to the month of the latest follower update
+    // Dated follower snapshots — appended on save when `followers` changes.
+    // Powers the auto growth % (vs ~60 days ago) and the "updated" month.
+    followerHistory: [],
     peakReelViews: 183000,
     peakReelLabel: 'Crème Mood MTL · 100% organic',
     collabs: 12,
@@ -264,6 +267,52 @@ function cleanRows(input, template, fields) {
   });
 }
 
+// Format an ISO date as "Oct 2025".
+function monthYear(iso) {
+  const dt = new Date(iso);
+  if (isNaN(dt)) return '';
+  return dt.toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+}
+
+// Maintain a dated follower history and derive the growth % + "updated" month.
+// - A new snapshot is appended whenever the follower count changes.
+// - Growth compares the latest count to the snapshot closest to 60 days ago
+//   (falls back to the oldest snapshot until 60 days of history exist).
+// - "Since" is the month of the most recent follower update.
+const SIXTY_DAYS_MS = 60 * 24 * 60 * 60 * 1000;
+const MAX_HISTORY = 200;
+
+function deriveFollowers(rawHistory, currentFollowers) {
+  let history = (Array.isArray(rawHistory) ? rawHistory : [])
+    .map((e) => (e && typeof e === 'object' ? { d: String(e.d || ''), v: cleanNum(e.v, 0) } : null))
+    .filter((e) => e && !isNaN(new Date(e.d)))
+    .sort((a, b) => new Date(a.d) - new Date(b.d))
+    .slice(-MAX_HISTORY);
+
+  const nowIso = new Date().toISOString();
+  const last = history[history.length - 1];
+  if (!last || last.v !== currentFollowers) {
+    history.push({ d: nowIso, v: currentFollowers });
+  }
+
+  const latest = history[history.length - 1];
+  const cutoff = new Date(latest.d).getTime() - SIXTY_DAYS_MS;
+  // The most recent snapshot that is at least 60 days older than the latest;
+  // if none is that old, compare against the oldest snapshot we have.
+  let base = history[0];
+  for (const h of history) {
+    if (new Date(h.d).getTime() <= cutoff) base = h;
+  }
+
+  let growth = '+0%';
+  if (base.v > 0) {
+    const pct = Math.round(((latest.v - base.v) / base.v) * 1000) / 10;
+    growth = (pct >= 0 ? '+' : '') + pct + '%';
+  }
+
+  return { history, growth, since: monthYear(latest.d) };
+}
+
 export function sanitizeStats(input) {
   const d = DEFAULT_STATS;
   const src = input && typeof input === 'object' ? input : {};
@@ -281,12 +330,14 @@ export function sanitizeStats(input) {
   const outIg = {};
   for (const k of numKeys) outIg[k] = cleanNum(ig[k], d.ig[k]);
   for (const k of pctKeys) outIg[k] = cleanPct(ig[k], d.ig[k]);
-  // Engagement rate is always derived server-side (interactions ÷ viewers × 100)
-  // so it stays consistent regardless of what the client sends.
-  outIg.engagementRate = outIg.viewers > 0
-    ? Math.round((outIg.interactions / outIg.viewers) * 1000) / 10
-    : outIg.engagementRate;
+  // Engagement rate is entered directly in the admin (kept as a plain number).
   for (const k of strKeys) outIg[k] = cleanStr(ig[k], d.ig[k]);
+  outIg.avgViewsUnit = 'K'; // Views unit is always "K" (not edited in the admin).
+  // Follower history → auto growth (vs ~60 days ago) + "updated" month.
+  const derived = deriveFollowers(ig.followerHistory, outIg.followers);
+  outIg.followerHistory = derived.history;
+  outIg.followersGrowth = derived.growth;
+  outIg.followersSince = derived.since;
   outIg.gender = { women: cleanPct(g.women, d.ig.gender.women), men: cleanPct(g.men, d.ig.gender.men) };
   outIg.ages = cleanRows(ig.ages, d.ig.ages, ['label', 'pct']);
   outIg.locations = cleanRows(ig.locations, d.ig.locations, ['name', 'pct']);

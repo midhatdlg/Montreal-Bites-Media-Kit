@@ -292,7 +292,7 @@
   /* ---------- Stats ---------- */
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 18px;
   }
   .stat {
@@ -1304,7 +1304,7 @@
 
       <div class="stat">
         <div>
-          <div class="label">Peak reel views</div>
+          <div class="label">Most viewed reel</div>
           <div class="n" id="stat-peakviews-n" data-count="183000">0<span class="unit">K</span></div>
         </div>
         <svg class="mini-chart" viewBox="0 0 120 28" preserveAspectRatio="none">
@@ -1336,14 +1336,6 @@
         <div class="delta">2&times; industry avg. for micro-creators</div>
       </div>
 
-      <div class="stat">
-        <div>
-          <div class="label">Brand collaborations</div>
-          <div class="n" id="stat-collabs-n" data-count="12">0<span class="plus">+</span></div>
-        </div>
-        <div class="delta" style="color: var(--fg-soft); margin-top: 20px;">Food &middot; Lifestyle &middot; Beauty &middot; Tech</div>
-        <div class="delta">All verified &amp; measured</div>
-      </div>
     </div>
   </section>
 
@@ -1379,10 +1371,10 @@
           </div>
         </div>
         <div class="p-card">
-          <div class="p-top"><span class="platform-icon">&#9654;</span><span class="handle">Avg. per reel</span></div>
-          <div><div class="p-name">Avg. views</div><div class="p-big" id="ig-avgviews">2.8<span class="unit">K</span></div></div>
+          <div class="p-top"><span class="platform-icon">&#9654;</span><span class="handle">Views in the last 30 days</span></div>
+          <div><div class="p-name">Views</div><div class="p-big" id="ig-avgviews">2.8<span class="unit">K</span></div></div>
           <div class="p-row">
-            <div><div class="k">Peak reel</div><div class="v" id="ig-peakreel">183K</div></div>
+            <div><div class="k">Most viewed reel</div><div class="v" id="ig-peakreel">183K</div></div>
             <div><div class="k">5K&ndash;10K+ hits</div><div class="v" id="ig-hits">Multiple</div></div>
           </div>
         </div>
@@ -1396,7 +1388,7 @@
         </div>
         <div class="p-card">
           <div class="p-top"><span class="platform-icon">&#9733;</span><span class="handle">Viral moment</span></div>
-          <div><div class="p-name">Top reel</div><div class="p-big" id="ig-viral">7,698</div></div>
+          <div><div class="p-name">Most viewed reel</div><div class="p-big" id="ig-viral">7,698</div></div>
           <div class="p-row">
             <div><div class="k">Direct sends</div><div class="v" id="ig-viralsource">Cr&egrave;me Mood</div></div>
             <div><div class="k">Month</div><div class="v" id="ig-viralmonth">Oct 2025</div></div>
@@ -1813,6 +1805,13 @@
     const esc = (s) => String(s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const fmtNum = (v) => Number(v).toLocaleString('en-US');
+    // 183000 → "183K", 1200000 → "1.2M"
+    const compactNum = (v) => {
+      const n = Number(v) || 0;
+      if (n >= 1e6) return (Math.round(n / 1e5) / 10) + 'M';
+      if (n >= 1e3) return (Math.round(n / 1e2) / 10) + 'K';
+      return String(Math.round(n));
+    };
 
     const setText = (id, val) => {
       const el = document.getElementById(id);
@@ -1853,14 +1852,13 @@
       setCount('stat-peakviews-n', ig.peakReelViews);
       setText('stat-peakviews-delta', ig.peakReelLabel);
       setCount('stat-engagement-n', ig.engagementRate);
-      setCount('stat-collabs-n', ig.collabs);
 
       // §02 Instagram card
       setText('ig-followers-value', ig.followers != null ? fmtNum(ig.followers) : null);
       setText('ig-growth', ig.followersGrowth);
       setText('ig-since', ig.followersSince);
       setBig('ig-avgviews', ig.avgViews, ig.avgViewsUnit);
-      setText('ig-peakreel', ig.peakReel);
+      setText('ig-peakreel', compactNum(ig.peakReelViews));
       setText('ig-hits', ig.peakReelHits);
       setBig('ig-rate', ig.engagementRate, '%');
       setText('ig-benchmark', '~' + ig.benchmark + '%');
@@ -1933,7 +1931,7 @@
 
       // Re-render the headline counters with their new target values.
       if (typeof setFinal === 'function') {
-        ['total-followers-count', 'stat-peakviews-n', 'stat-engagement-n', 'stat-collabs-n']
+        ['total-followers-count', 'stat-peakviews-n', 'stat-engagement-n']
           .forEach((id) => { const el = document.getElementById(id); if (el) setFinal(el); });
       }
     };
