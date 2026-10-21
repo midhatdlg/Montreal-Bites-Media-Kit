@@ -276,10 +276,8 @@ function monthYear(iso) {
 
 // Maintain a dated follower history and derive the growth % + "updated" month.
 // - A new snapshot is appended whenever the follower count changes.
-// - Growth compares the latest count to the snapshot closest to 60 days ago
-//   (falls back to the oldest snapshot until 60 days of history exist).
+// - Growth = % change between this update and the previous update.
 // - "Since" is the month of the most recent follower update.
-const SIXTY_DAYS_MS = 60 * 24 * 60 * 60 * 1000;
 const MAX_HISTORY = 200;
 
 function deriveFollowers(rawHistory, currentFollowers) {
@@ -296,17 +294,11 @@ function deriveFollowers(rawHistory, currentFollowers) {
   }
 
   const latest = history[history.length - 1];
-  const cutoff = new Date(latest.d).getTime() - SIXTY_DAYS_MS;
-  // The most recent snapshot that is at least 60 days older than the latest;
-  // if none is that old, compare against the oldest snapshot we have.
-  let base = history[0];
-  for (const h of history) {
-    if (new Date(h.d).getTime() <= cutoff) base = h;
-  }
+  const prev = history[history.length - 2]; // the update before this one
 
   let growth = '+0%';
-  if (base.v > 0) {
-    const pct = Math.round(((latest.v - base.v) / base.v) * 1000) / 10;
+  if (prev && prev.v > 0) {
+    const pct = Math.round(((latest.v - prev.v) / prev.v) * 1000) / 10;
     growth = (pct >= 0 ? '+' : '') + pct + '%';
   }
 
