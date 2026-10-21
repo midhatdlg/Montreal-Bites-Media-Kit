@@ -889,7 +889,7 @@
   /* ---------- Footer / colophon ---------- */
   .colophon {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
     padding: 32px 0 40px;
     border-top: 1px solid var(--fg);
@@ -1687,17 +1687,14 @@
     </div>
     <div class="c-list">
       <div class="row"><span class="k">Email</span><span class="v"><a href="mailto:montrealbites@gmail.com">montrealbites@gmail.com</a></span><span class="arrow">&rarr;</span></div>
-      <div class="row"><span class="k">Instagram</span><span class="v"><a href="https://instagram.com/montrealbites">@montrealbites</a></span><span class="arrow">&rarr;</span></div>
-      <div class="row"><span class="k">Based in</span><span class="v">Montr&eacute;al, QC</span><span class="arrow"></span></div>
-      <div class="row"><span class="k">Data verified</span><span class="v" id="verified-contact">April 2025</span><span class="arrow"></span></div>
-      <div class="row"><span class="k">Reply time</span><span class="v">Within 48 hours</span><span class="arrow"></span></div>
+      <div class="row"><span class="k">Instagram &middot; TikTok</span><span class="v"><a href="https://instagram.com/montrealbites">@montrealbites</a></span><span class="arrow">&rarr;</span></div>
+      <div class="row"><span class="k">Based in</span><span class="v">Montr&eacute;al &middot; Toronto</span><span class="arrow"></span></div>
     </div>
   </section>
 
   <footer class="colophon">
     <div class="c">&copy; 2026 Montr&eacute;al Bites &middot; All rights reserved</div>
-    <div class="c center" id="verified-footer">Data verified April 2025 via Instagram Insights</div>
-    <div class="c right">@montrealbites &middot; Montr&eacute;al, QC</div>
+    <div class="c right">@montrealbites &middot; Montr&eacute;al &middot; Toronto</div>
   </footer>
 
 </div>
@@ -1945,8 +1942,6 @@
       }
 
       // Verified date
-      setText('verified-contact', d.verified);
-      setText('verified-footer', 'Data verified ' + (d.verified || '') + ' via Instagram Insights');
 
       // Re-render the headline counters with their new target values.
       if (typeof setFinal === 'function') {
