@@ -1,2 +1,12 @@
 # Local Netlify folder
 .netlify
+
+# Dependencies
+node_modules
+
+# Local secrets (admin password hash, session secret)
+.env
+.env.*
+
+# macOS
+.DS_Store

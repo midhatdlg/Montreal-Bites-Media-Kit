@@ -174,8 +174,7 @@
 
   /* ---------- Hero ---------- */
   .hero {
-    padding: calc(80px * var(--density)) 0 calc(60px * var(--density));
-    border-bottom: 1px solid var(--line);
+    padding: calc(64px * var(--density)) 0 calc(40px * var(--density));
     position: relative;
   }
   .hero-grid {
@@ -187,7 +186,7 @@
   .hero h1 {
     font-family: var(--serif);
     font-weight: 300;
-    font-size: clamp(54px, 8.5vw, 136px);
+    font-size: clamp(42px, 6.5vw, 104px);
     line-height: 0.92;
     letter-spacing: -0.035em;
     margin: 24px 0 0;
@@ -221,7 +220,7 @@
 
   .hero-meta {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 18px;
     margin-top: 18px;
     padding-top: 18px;
@@ -236,7 +235,7 @@
     margin-top: 32px;
     border-top: 1px solid var(--fg);
     border-bottom: 1px solid var(--fg);
-    padding: 14px 0;
+    padding: 9px 0;
     position: relative;
   }
   .marquee {
@@ -245,7 +244,7 @@
     animation: marquee 40s linear infinite;
     font-family: var(--serif);
     font-style: italic;
-    font-size: 22px;
+    font-size: 16px;
     color: var(--fg);
   }
   .marquee span { display: inline-flex; align-items: center; gap: 42px; }
@@ -256,13 +255,13 @@
   }
 
   /* ---------- Section header ---------- */
-  .section { padding: calc(80px * var(--density)) 0; border-bottom: 1px solid var(--line); }
+  .section { padding: calc(52px * var(--density)) 0; }
   .section-head {
     display: grid;
-    grid-template-columns: 160px 1fr auto;
+    grid-template-columns: 1fr auto;
     gap: 32px;
     align-items: baseline;
-    padding-bottom: 40px;
+    padding-bottom: 28px;
   }
   .section-no {
     font-family: var(--mono);
@@ -274,11 +273,11 @@
   .section-head h2 {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: clamp(32px, 4vw, 54px);
-    line-height: 1.02;
-    letter-spacing: -0.025em;
+    font-size: clamp(24px, 2.8vw, 36px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     margin: 0;
-    text-wrap: balance;
+    white-space: nowrap;
   }
   .section-head h2 em { font-style: italic; color: var(--accent); }
   .section-head .aside {
@@ -294,18 +293,19 @@
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    border-top: 1px solid var(--fg);
-    border-bottom: 1px solid var(--fg);
+    gap: 18px;
   }
   .stat {
-    padding: 36px 28px 28px;
-    border-right: 1px solid var(--line);
+    padding: 30px 26px 26px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--card, rgba(255,255,255,0.35));
     position: relative;
     min-height: 220px;
     display: flex; flex-direction: column; justify-content: space-between;
+    transition: border-color 0.2s ease, transform 0.2s ease;
   }
-  .stat:last-child { border-right: 0; }
+  .stat:hover { border-color: var(--fg); transform: translateY(-2px); }
   .stat .n {
     font-family: var(--serif);
     font-weight: 300;
@@ -497,8 +497,7 @@
   /* ---------- Featured reel ---------- */
   .reel-grid {
     display: grid;
-    grid-template-columns: 1.6fr 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
     margin-top: 10px;
   }
@@ -576,6 +575,7 @@
   .thumb-3 { background: linear-gradient(160deg, #2a1e12 0%, #5a3a1e 60%, #c99a2a 100%); }
   .thumb-4 { background: linear-gradient(180deg, #14110f 0%, #2a2521 60%, #4a423a 100%); }
   .thumb-5 { background: linear-gradient(135deg, #1a1714 0%, #3a1f14 50%, #a33d1d 100%); }
+  .thumb-6 { background: linear-gradient(150deg, #14110f 0%, #2d2a24 55%, #6a5a3d 100%); }
 
   .reel-card .reel-img {
     position: absolute; inset: 0;
@@ -1216,7 +1216,7 @@
     .stat .n .unit { font-size: 18px; }
     .mh-meta { font-size: 9px; letter-spacing: 0.1em; }
     .eyebrow { font-size: 9.5px; letter-spacing: 0.14em; }
-    .section-head h2 { font-size: clamp(26px, 7vw, 38px); }
+    .section-head h2 { font-size: clamp(22px, 6vw, 30px); white-space: normal; }
     .bar-row { grid-template-columns: 64px 1fr 38px; gap: 8px; }
     .bar-row .lbl { font-size: 13px; }
     .c-list .row { grid-template-columns: 64px 1fr auto; gap: 8px; padding: 14px 0; }
@@ -1268,36 +1268,27 @@
       <div>
         <span class="eyebrow">A Media Kit for Restaurants, Caf&eacute;s <span>&amp;</span> Lifestyle Brands</span>
         <h1>
-          A Montr&eacute;al <span class="it">micro-creator</span><br>
-          with a <span class="it">viral</span><br>
-          reach.
+          A <span class="it">Lifestyle</span> creator with a <span class="it">viral</span> reach.
         </h1>
       </div>
       <aside class="hero-side">
         <div class="hero-meta">
           <div class="cell"><div class="k">Handle</div><div class="v">@montrealbites</div></div>
-          <div class="cell"><div class="k">Platform</div><div class="v">Instagram</div></div>
-          <div class="cell"><div class="k">Verified</div><div class="v">April 2025</div></div>
+          <div class="cell"><div class="k">Platform</div><div class="v">Instagram &middot; TikTok</div></div>
         </div>
       </aside>
     </div>
 
     <div class="marquee-wrap">
       <div class="marquee">
-        <span>Cr&egrave;me Mood <span class="star">&#10022;</span> Amalia <span class="star">&#10022;</span> Caf&eacute; Green Drip <span class="star">&#10022;</span> Maison Sauvage <span class="star">&#10022;</span> Carreras <span class="star">&#10022;</span> La Panzeria <span class="star">&#10022;</span> Tabaq Coffee <span class="star">&#10022;</span> Buboy <span class="star">&#10022;</span> Quinn Farm <span class="star">&#10022;</span> Whimvoy <span class="star">&#10022;</span></span>
-        <span aria-hidden="true">Cr&egrave;me Mood <span class="star">&#10022;</span> Amalia <span class="star">&#10022;</span> Caf&eacute; Green Drip <span class="star">&#10022;</span> Maison Sauvage <span class="star">&#10022;</span> Carreras <span class="star">&#10022;</span> La Panzeria <span class="star">&#10022;</span> Tabaq Coffee <span class="star">&#10022;</span> Buboy <span class="star">&#10022;</span> Quinn Farm <span class="star">&#10022;</span> Whimvoy <span class="star">&#10022;</span></span>
+        <span>Bel-Air Tremblant <span class="star">&#10022;</span> Fever <span class="star">&#10022;</span> Ben &amp; Jerry <span class="star">&#10022;</span> Forget Me Not Coffee <span class="star">&#10022;</span> Queens Harbour <span class="star">&#10022;</span> Cozey <span class="star">&#10022;</span> Second Cup <span class="star">&#10022;</span> Porter Airlines <span class="star">&#10022;</span> Poulet Rouge <span class="star">&#10022;</span> Navark <span class="star">&#10022;</span> Eggslut <span class="star">&#10022;</span> Gray Collection <span class="star">&#10022;</span> Fujifilm <span class="star">&#10022;</span> Unique Bunny <span class="star">&#10022;</span> Monography <span class="star">&#10022;</span> Time Out Market <span class="star">&#10022;</span></span>
+        <span aria-hidden="true">Bel-Air Tremblant <span class="star">&#10022;</span> Fever <span class="star">&#10022;</span> Ben &amp; Jerry <span class="star">&#10022;</span> Forget Me Not Coffee <span class="star">&#10022;</span> Queens Harbour <span class="star">&#10022;</span> Cozey <span class="star">&#10022;</span> Second Cup <span class="star">&#10022;</span> Porter Airlines <span class="star">&#10022;</span> Poulet Rouge <span class="star">&#10022;</span> Navark <span class="star">&#10022;</span> Eggslut <span class="star">&#10022;</span> Gray Collection <span class="star">&#10022;</span> Fujifilm <span class="star">&#10022;</span> Unique Bunny <span class="star">&#10022;</span> Monography <span class="star">&#10022;</span> Time Out Market <span class="star">&#10022;</span></span>
       </div>
     </div>
   </section>
 
   <!-- STATS -->
   <section class="section" id="stats">
-    <div class="section-head">
-      <span class="section-no">&sect; 01 &mdash; By the numbers</span>
-      <h2>Small following, <em>viral reach.</em></h2>
-      <p class="aside">All figures verified April 2025 via Instagram Insights.</p>
-    </div>
-
     <div class="stats-grid">
       <div class="stat">
         <div>
@@ -1308,25 +1299,25 @@
           <polyline fill="none" stroke="currentColor" stroke-width="1.2"
             points="0,22 10,20 20,19 30,16 40,17 50,13 60,12 70,10 80,8 90,9 100,6 110,5 120,3"/>
         </svg>
-        <div class="delta">&#9650; +2.3% &middot; growing since Jan 2025</div>
+        <div class="delta" id="stat-followers-delta">&#9650; +2.3% &middot; growing since Jan 2025</div>
       </div>
 
       <div class="stat">
         <div>
           <div class="label">Peak reel views</div>
-          <div class="n" data-count="183000">0<span class="unit">K</span></div>
+          <div class="n" id="stat-peakviews-n" data-count="183000">0<span class="unit">K</span></div>
         </div>
         <svg class="mini-chart" viewBox="0 0 120 28" preserveAspectRatio="none">
           <polyline fill="none" stroke="currentColor" stroke-width="1.2"
             points="0,24 10,24 20,23 30,23 40,22 50,22 60,21 70,20 80,18 90,14 100,8 110,3 120,2"/>
         </svg>
-        <div class="delta">Cr&egrave;me Mood MTL &middot; 100% organic</div>
+        <div class="delta" id="stat-peakviews-delta">Cr&egrave;me Mood MTL &middot; 100% organic</div>
       </div>
 
       <div class="stat">
         <div>
           <div class="label">Engagement rate</div>
-          <div class="n" data-count="3.5" data-decimals="1">0<span class="unit">%</span></div>
+          <div class="n" id="stat-engagement-n" data-count="3.5" data-decimals="1">0<span class="unit">%</span></div>
         </div>
         <svg class="mini-chart" viewBox="0 0 120 28" preserveAspectRatio="none">
           <rect x="4"   y="14" width="6" height="10"/>
@@ -1348,7 +1339,7 @@
       <div class="stat">
         <div>
           <div class="label">Brand collaborations</div>
-          <div class="n" data-count="12">0<span class="plus">+</span></div>
+          <div class="n" id="stat-collabs-n" data-count="12">0<span class="plus">+</span></div>
         </div>
         <div class="delta" style="color: var(--fg-soft); margin-top: 20px;">Food &middot; Lifestyle &middot; Beauty &middot; Tech</div>
         <div class="delta">All verified &amp; measured</div>
@@ -1359,7 +1350,6 @@
   <!-- PLATFORMS / IG + TIKTOK -->
   <section class="section" id="platforms">
     <div class="section-head">
-      <span class="section-no">&sect; 02 &mdash; Where we live</span>
       <h2>Two platforms, <em>two audiences.</em></h2>
       <p class="aside">Tap a platform to see its stats. Instagram is the flagship; TikTok is new &amp; growing.</p>
     </div>
@@ -1384,32 +1374,32 @@
           <div class="p-top"><span class="platform-icon">&#9678;</span><span class="handle">@montrealbites</span></div>
           <div><div class="p-name">Followers</div><div class="p-big" id="ig-followers-value">3,817</div></div>
           <div class="p-row">
-            <div><div class="k">Growth</div><div class="v">+2.3%</div></div>
-            <div><div class="k">Since</div><div class="v">Jan 2025</div></div>
+            <div><div class="k">Growth</div><div class="v" id="ig-growth">+2.3%</div></div>
+            <div><div class="k">Since</div><div class="v" id="ig-since">Jan 2025</div></div>
           </div>
         </div>
         <div class="p-card">
           <div class="p-top"><span class="platform-icon">&#9654;</span><span class="handle">Avg. per reel</span></div>
-          <div><div class="p-name">Avg. views</div><div class="p-big">2.8<span class="unit">K</span></div></div>
+          <div><div class="p-name">Avg. views</div><div class="p-big" id="ig-avgviews">2.8<span class="unit">K</span></div></div>
           <div class="p-row">
-            <div><div class="k">Peak reel</div><div class="v">183K</div></div>
-            <div><div class="k">5K&ndash;10K+ hits</div><div class="v">Multiple</div></div>
+            <div><div class="k">Peak reel</div><div class="v" id="ig-peakreel">183K</div></div>
+            <div><div class="k">5K&ndash;10K+ hits</div><div class="v" id="ig-hits">Multiple</div></div>
           </div>
         </div>
         <div class="p-card">
           <div class="p-top"><span class="platform-icon">&#9825;</span><span class="handle">Engagement</span></div>
-          <div><div class="p-name">Rate</div><div class="p-big">3.5<span class="unit">%</span></div></div>
+          <div><div class="p-name">Rate</div><div class="p-big" id="ig-rate">3.5<span class="unit">%</span></div></div>
           <div class="p-row">
-            <div><div class="k">Benchmark</div><div class="v">~1.7%</div></div>
-            <div><div class="k">Multiplier</div><div class="v">2.0&times;</div></div>
+            <div><div class="k">Benchmark</div><div class="v" id="ig-benchmark">~1.7%</div></div>
+            <div><div class="k">Multiplier</div><div class="v" id="ig-multiplier">2.0&times;</div></div>
           </div>
         </div>
         <div class="p-card">
           <div class="p-top"><span class="platform-icon">&#9733;</span><span class="handle">Viral moment</span></div>
-          <div><div class="p-name">Top reel</div><div class="p-big">7,698</div></div>
+          <div><div class="p-name">Top reel</div><div class="p-big" id="ig-viral">7,698</div></div>
           <div class="p-row">
-            <div><div class="k">Direct sends</div><div class="v">Cr&egrave;me Mood</div></div>
-            <div><div class="k">Month</div><div class="v">Oct 2025</div></div>
+            <div><div class="k">Direct sends</div><div class="v" id="ig-viralsource">Cr&egrave;me Mood</div></div>
+            <div><div class="k">Month</div><div class="v" id="ig-viralmonth">Oct 2025</div></div>
           </div>
         </div>
       </div>
@@ -1420,34 +1410,34 @@
       <div class="platform-row">
         <div class="p-card">
           <div class="p-top"><span class="platform-icon" style="font-family: var(--mono); letter-spacing:-.04em;">&#9834;</span><span class="handle">@montrealbites &middot; <span id="tt-followers-value">676</span> followers</span></div>
-          <div><div class="p-name">Post views</div><div class="p-big">676<span class="unit">K</span></div></div>
+          <div><div class="p-name">Post views</div><div class="p-big" id="tt-postviews">676<span class="unit">K</span></div></div>
           <div class="p-row">
-            <div><div class="k">28-day views</div><div class="v">38K</div></div>
-            <div><div class="k">28-day growth</div><div class="v" style="color: var(--accent);">+38.7%</div></div>
+            <div><div class="k">28-day views</div><div class="v" id="tt-views28">38K</div></div>
+            <div><div class="k">28-day growth</div><div class="v" id="tt-growth28" style="color: var(--accent);">+38.7%</div></div>
           </div>
         </div>
         <div class="p-card">
           <div class="p-top"><span class="platform-icon">&#9825;</span><span class="handle">365-day engagement</span></div>
-          <div><div class="p-name">Likes</div><div class="p-big">28<span class="unit">K</span></div></div>
+          <div><div class="p-name">Likes</div><div class="p-big" id="tt-likes">28<span class="unit">K</span></div></div>
           <div class="p-row">
-            <div><div class="k">Shares</div><div class="v">8,423</div></div>
-            <div><div class="k">Comments</div><div class="v">248</div></div>
+            <div><div class="k">Shares</div><div class="v" id="tt-shares">8,423</div></div>
+            <div><div class="k">Comments</div><div class="v" id="tt-comments">248</div></div>
           </div>
         </div>
         <div class="p-card">
           <div class="p-top"><span class="platform-icon">&#9673;</span><span class="handle">Audience</span></div>
-          <div><div class="p-name">Total viewers</div><div class="p-big">547<span class="unit">K</span></div></div>
+          <div><div class="p-name">Total viewers</div><div class="p-big" id="tt-viewers">547<span class="unit">K</span></div></div>
           <div class="p-row">
-            <div><div class="k">New viewers</div><div class="v">290K</div></div>
-            <div><div class="k">Gender</div><div class="v">76% F</div></div>
+            <div><div class="k">New viewers</div><div class="v" id="tt-newviewers">290K</div></div>
+            <div><div class="k">Gender</div><div class="v" id="tt-genderf">76% F</div></div>
           </div>
         </div>
         <div class="p-card">
           <div class="p-top"><span class="platform-icon">&#10022;</span><span class="handle">Discovery</span></div>
-          <div><div class="p-name">For You page</div><div class="p-big">79.7<span class="unit">%</span></div></div>
+          <div><div class="p-name">For You page</div><div class="p-big" id="tt-fyp">79.7<span class="unit">%</span></div></div>
           <div class="p-row">
-            <div><div class="k">Search</div><div class="v">15.8%</div></div>
-            <div><div class="k">Profile</div><div class="v">4.4%</div></div>
+            <div><div class="k">Search</div><div class="v" id="tt-search">15.8%</div></div>
+            <div><div class="k">Profile</div><div class="v" id="tt-profile">4.4%</div></div>
           </div>
         </div>
       </div>
@@ -1457,7 +1447,6 @@
   <!-- AUDIENCE -->
   <section class="section" id="audience">
     <div class="section-head">
-      <span class="section-no">&sect; 03 &mdash; Who's watching</span>
       <h2>Millennials, <em>women, in Canada.</em></h2>
       <p class="aside">Core demo 25&ndash;44 (70.2%) &middot; 85% Canadian &middot; 65% women.</p>
     </div>
@@ -1465,6 +1454,7 @@
     <div class="audience-grid">
       <div class="demo-block">
         <h3>Age distribution</h3>
+        <div id="demo-age-rows">
         <div class="bar-row"><span class="lbl">13 &ndash; 17</span><div class="bar"><div class="fill" style="width:0.5%"></div></div><span class="pct">0.2%</span></div>
         <div class="bar-row"><span class="lbl">18 &ndash; 24</span><div class="bar"><div class="fill" style="width:13%"></div></div><span class="pct">5.3%</span></div>
         <div class="bar-row"><span class="lbl">25 &ndash; 34</span><div class="bar"><div class="fill" style="width:100%"></div></div><span class="pct">39.1%</span></div>
@@ -1472,15 +1462,18 @@
         <div class="bar-row"><span class="lbl">45 &ndash; 54</span><div class="bar"><div class="fill" style="width:35%"></div></div><span class="pct">13.7%</span></div>
         <div class="bar-row"><span class="lbl">55 &ndash; 64</span><div class="bar"><div class="fill" style="width:16%"></div></div><span class="pct">6.3%</span></div>
         <div class="bar-row"><span class="lbl">65 +</span><div class="bar"><div class="fill" style="width:5%"></div></div><span class="pct">2.1%</span></div>
+        </div>
       </div>
 
       <div class="demo-block">
         <h3>Top locations</h3>
+        <div id="demo-locations-rows">
         <div class="bar-row"><span class="lbl">Canada</span><div class="bar"><div class="fill" style="width:100%"></div></div><span class="pct">85.1%</span></div>
         <div class="bar-row"><span class="lbl">United States</span><div class="bar"><div class="fill" style="width:5%"></div></div><span class="pct">4.3%</span></div>
         <div class="bar-row"><span class="lbl">France</span><div class="bar"><div class="fill" style="width:1.4%"></div></div><span class="pct">1.2%</span></div>
         <div class="bar-row"><span class="lbl">Bangladesh</span><div class="bar"><div class="fill" style="width:0.9%"></div></div><span class="pct">0.8%</span></div>
         <div class="bar-row"><span class="lbl">India</span><div class="bar"><div class="fill" style="width:0.8%"></div></div><span class="pct">0.7%</span></div>
+        </div>
       </div>
 
       <div class="demo-block">
@@ -1489,16 +1482,16 @@
           <div class="donut">
             <svg viewBox="0 0 42 42">
               <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--ivory-3)" stroke-width="4"/>
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--fg)" stroke-width="4"
+              <circle id="donut-women" cx="21" cy="21" r="15.9" fill="none" stroke="var(--fg)" stroke-width="4"
                 stroke-dasharray="65 100" stroke-dashoffset="0"/>
-              <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--accent)" stroke-width="4"
+              <circle id="donut-men" cx="21" cy="21" r="15.9" fill="none" stroke="var(--accent)" stroke-width="4"
                 stroke-dasharray="35 100" stroke-dashoffset="-65"/>
             </svg>
-            <div class="donut-center">65 / 35<small>Women / Men</small></div>
+            <div class="donut-center" id="donut-center">65 / 35<small>Women / Men</small></div>
           </div>
           <div class="legend">
-            <div class="li"><span class="sw" style="background: var(--fg)"></span><span>Women</span><span class="pct">65%</span></div>
-            <div class="li"><span class="sw" style="background: var(--accent)"></span><span>Men</span><span class="pct">35%</span></div>
+            <div class="li"><span class="sw" style="background: var(--fg)"></span><span>Women</span><span class="pct" id="gender-women-pct">65%</span></div>
+            <div class="li"><span class="sw" style="background: var(--accent)"></span><span>Men</span><span class="pct" id="gender-men-pct">35%</span></div>
           </div>
         </div>
 
@@ -1506,9 +1499,11 @@
 
         <div style="border-top: 1px dashed var(--line); padding-top: 14px;">
           <div style="font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg-soft); margin-bottom: 10px;">Top posting windows</div>
+          <div id="demo-windows-rows">
           <div class="bar-row"><span class="lbl">Tuesday</span><div class="bar"><div class="fill" style="width:100%"></div></div><span class="pct">6&ndash;9PM</span></div>
           <div class="bar-row"><span class="lbl">Monday</span><div class="bar"><div class="fill" style="width:72%"></div></div><span class="pct">3&ndash;6PM</span></div>
           <div class="bar-row"><span class="lbl">Friday</span><div class="bar"><div class="fill" style="width:72%"></div></div><span class="pct">3&ndash;6PM</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1517,13 +1512,12 @@
   <!-- FEATURED REEL -->
   <section class="section" id="reel">
     <div class="section-head">
-      <span class="section-no">&sect; 04 &mdash; Selected works</span>
       <h2>Recent <em>films.</em></h2>
       <p class="aside">Click any thumbnail to watch. Full reel on request.</p>
     </div>
 
     <div class="reel-grid">
-      <div class="reel-card big" data-embed-url="https://www.instagram.com/reel/DPtsDDFEbOA/" data-embed-type="instagram">
+      <div class="reel-card" data-embed-url="https://www.instagram.com/reel/DPtsDDFEbOA/" data-embed-type="instagram">
         <div class="reel-thumb thumb-1"></div>
         <img class="reel-img" src="assets/crememood.jpeg" alt="Crème Mood MTL" loading="lazy">
         <div class="thumb-grain"></div>
@@ -1531,7 +1525,7 @@
         <span class="reel-play">&#9654;</span>
         <div class="reel-meta">
           <span class="reel-tag">Cr&egrave;me Mood MTL &middot; Oct 2025</span>
-          <div class="reel-title">The viral one.<br>7,698 sends, zero paid boost.</div>
+          <div class="reel-title">The viral one.</div>
         </div>
       </div>
 
@@ -1580,6 +1574,17 @@
           <div class="reel-title">Caf&eacute; Green Drip.</div>
         </div>
       </div>
+
+      <div class="reel-card" data-embed-url="https://www.instagram.com/montrealbites/" data-embed-type="instagram">
+        <div class="reel-thumb thumb-6"></div>
+        <img class="reel-img" src="assets/montreal-cafes.png" alt="Montréal Cafés Guide" loading="lazy">
+        <div class="thumb-grain"></div>
+        <span class="reel-play">&#9654;</span>
+        <div class="reel-meta">
+          <span class="reel-tag">Organic &middot; City Guide</span>
+          <div class="reel-title">Montr&eacute;al Caf&eacute;s.</div>
+        </div>
+      </div>
     </div>
 
     <!-- Embed modal -->
@@ -1591,65 +1596,8 @@
     </div>
   </section>
 
-  <!-- CONTENT PILLARS -->
-  <section class="section" id="pillars">
-    <div class="section-head">
-      <span class="section-no">&sect; 05 &mdash; What we cover</span>
-      <h2>Four columns, <em>one table.</em></h2>
-      <p class="aside">Every project lives under one of these four pillars.</p>
-    </div>
-
-    <div class="pillars">
-      <div class="pillar">
-        <div class="num">01</div>
-        <h4>Food &amp; Dining</h4>
-        <p>Restaurants, pastry rooms, drinks &mdash; the core beat, with 10+ brand collabs to date.</p>
-        <div class="pill-tag">10+ collabs</div>
-      </div>
-      <div class="pillar">
-        <div class="num">02</div>
-        <h4>Caf&eacute; Culture</h4>
-        <p>Coffee and beverage content that travels organically &mdash; Caf&eacute; Green Drip hit 7K unpaid.</p>
-        <div class="pill-tag">Organic reach</div>
-      </div>
-      <div class="pillar">
-        <div class="num">03</div>
-        <h4>Lifestyle &amp; Beauty</h4>
-        <p>Adjacent niches that still perform &mdash; Whimvoy (Apple Watch) reached 3.9K non-food viewers.</p>
-        <div class="pill-tag">Cross-niche</div>
-      </div>
-      <div class="pillar">
-        <div class="num">04</div>
-        <h4>Events &amp; Experiences</h4>
-        <p>Quinn Farm, escape rooms, holiday pop-ups &mdash; the one-night-only kind of thing.</p>
-        <div class="pill-tag">Seasonal</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PARTNERS -->
+  <!-- PARTNERS / TESTIMONIAL -->
   <section class="section" id="partners">
-    <div class="section-head">
-      <span class="section-no">&sect; 06 &mdash; In good company</span>
-      <h2>Trusted by the places <em>we actually eat at.</em></h2>
-      <p class="aside">A partial list &mdash; full reference deck available on request.</p>
-    </div>
-
-    <div class="partners">
-      <div class="partner"><span class="p-num">01</span>Cr&egrave;me Mood</div>
-      <div class="partner italic"><span class="p-num">02</span>Amalia</div>
-      <div class="partner"><span class="p-num">03</span>Caf&eacute; Green Drip</div>
-      <div class="partner italic"><span class="p-num">04</span>Maison Sauvage</div>
-      <div class="partner"><span class="p-num">05</span>Carreras</div>
-      <div class="partner italic"><span class="p-num">06</span>La Panzeria</div>
-      <div class="partner"><span class="p-num">07</span>Tabaq Coffee</div>
-      <div class="partner italic"><span class="p-num">08</span>Buboy MTL</div>
-      <div class="partner"><span class="p-num">09</span>Quinn Farm</div>
-      <div class="partner italic"><span class="p-num">10</span>Whimvoy</div>
-      <div class="partner"><span class="p-num">11</span>+ 2 more</div>
-      <div class="partner italic"><span class="p-num">12</span>Your brand?</div>
-    </div>
-
     <!-- Testimonial -->
     <div class="testimonial">
       <div class="t-side">Performance<br>MTL &middot; Oct 2025</div>
@@ -1664,7 +1612,6 @@
   <!-- PACKAGES -->
   <section class="section" id="packages">
     <div class="section-head">
-      <span class="section-no">&sect; 07 &mdash; How we work together</span>
       <h2>Three ways <em>in.</em></h2>
       <p class="aside">All packages include location scouting, licensing, and a rough cut in 7 days.</p>
     </div>
@@ -1719,7 +1666,6 @@
   <!-- PROCESS -->
   <section class="section" id="process">
     <div class="section-head">
-      <span class="section-no">&sect; 08 &mdash; Our process</span>
       <h2>From first coffee to <em>first cut.</em></h2>
       <p class="aside">Most projects wrap in two to three weeks, end-to-end.</p>
     </div>
@@ -1743,14 +1689,14 @@
       <div class="row"><span class="k">Email</span><span class="v"><a href="mailto:montrealbites@gmail.com">montrealbites@gmail.com</a></span><span class="arrow">&rarr;</span></div>
       <div class="row"><span class="k">Instagram</span><span class="v"><a href="https://instagram.com/montrealbites">@montrealbites</a></span><span class="arrow">&rarr;</span></div>
       <div class="row"><span class="k">Based in</span><span class="v">Montr&eacute;al, QC</span><span class="arrow"></span></div>
-      <div class="row"><span class="k">Data verified</span><span class="v">April 2025</span><span class="arrow"></span></div>
+      <div class="row"><span class="k">Data verified</span><span class="v" id="verified-contact">April 2025</span><span class="arrow"></span></div>
       <div class="row"><span class="k">Reply time</span><span class="v">Within 48 hours</span><span class="arrow"></span></div>
     </div>
   </section>
 
   <footer class="colophon">
     <div class="c">&copy; 2026 Montr&eacute;al Bites &middot; All rights reserved</div>
-    <div class="c center">Data verified April 2025 via Instagram Insights</div>
+    <div class="c center" id="verified-footer">Data verified April 2025 via Instagram Insights</div>
     <div class="c right">@montrealbites &middot; Montr&eacute;al, QC</div>
   </footer>
 
@@ -1875,43 +1821,144 @@
     page.style.display = '';
   }
 
-  // ---------- Follower overrides from /update ----------
-  const FOLLOWER_STORAGE_KEY = 'mb-follower-counts';
+  // ---------- Live stats from /api/stats (admin-managed) ----------
+  // Overwrites the hardcoded figures with the latest saved values. On any
+  // failure the hardcoded fallback values stay in place.
+  (function loadLiveStats() {
+    const esc = (s) => String(s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const fmtNum = (v) => Number(v).toLocaleString('en-US');
 
-  const parseFollowerNumber = (value) => {
-    if (value == null) return null;
-    const normalized = String(value).replace(/,/g, '').trim();
-    if (!normalized) return null;
-    const num = Number(normalized);
-    return Number.isFinite(num) ? Math.max(0, Math.round(num)) : null;
-  };
+    const setText = (id, val) => {
+      const el = document.getElementById(id);
+      if (el && val != null) el.textContent = val;
+    };
+    const setBig = (id, value, unit) => {
+      const el = document.getElementById(id);
+      if (!el || value == null) return;
+      el.innerHTML = esc(value) + (unit ? '<span class="unit">' + esc(unit) + '</span>' : '');
+    };
+    const setCount = (id, num) => {
+      const el = document.getElementById(id);
+      if (el && num != null && Number.isFinite(Number(num))) el.dataset.count = String(num);
+    };
 
-  const formatFollowers = (value) => value.toLocaleString('en-US');
+    const barRows = (containerId, rows, labelKey, pctKey, pctLabel) => {
+      const box = document.getElementById(containerId);
+      if (!box || !Array.isArray(rows) || !rows.length) return;
+      const max = Math.max.apply(null, rows.map((r) => Number(r[pctKey]) || 0)) || 1;
+      box.innerHTML = rows.map((r) => {
+        const pct = Number(r[pctKey]) || 0;
+        const w = Math.max(0.5, (pct / max) * 100);
+        const label = pctLabel ? pctLabel(r) : (pct + '%');
+        return '<div class="bar-row"><span class="lbl">' + esc(r[labelKey]) +
+          '</span><div class="bar"><div class="fill" style="width:' + w.toFixed(1) +
+          '%"></div></div><span class="pct">' + esc(label) + '</span></div>';
+      }).join('');
+    };
 
-  (function applyFollowerOverrides() {
-    let overrides = null;
-    try {
-      overrides = JSON.parse(localStorage.getItem(FOLLOWER_STORAGE_KEY) || 'null');
-    } catch (err) {
-      return;
-    }
-    if (!overrides || typeof overrides !== 'object') return;
+    const apply = (d) => {
+      if (!d || typeof d !== 'object') return;
+      const ig = d.ig || {}, tt = d.tt || {};
 
-    const igFollowers = parseFollowerNumber(overrides.instagram);
-    const ttFollowers = parseFollowerNumber(overrides.tiktok);
+      // §01 headline counters + deltas
+      setCount('total-followers-count', ig.followers);
+      setText('stat-followers-delta', '▲ ' + (ig.followersGrowth || '') +
+        ' · growing since ' + (ig.followersSince || ''));
+      setCount('stat-peakviews-n', ig.peakReelViews);
+      setText('stat-peakviews-delta', ig.peakReelLabel);
+      setCount('stat-engagement-n', ig.engagementRate);
+      setCount('stat-collabs-n', ig.collabs);
 
-    if (igFollowers != null) {
-      const igEl = document.getElementById('ig-followers-value');
-      if (igEl) igEl.textContent = formatFollowers(igFollowers);
+      // §02 Instagram card
+      setText('ig-followers-value', ig.followers != null ? fmtNum(ig.followers) : null);
+      setText('ig-growth', ig.followersGrowth);
+      setText('ig-since', ig.followersSince);
+      setBig('ig-avgviews', ig.avgViews, ig.avgViewsUnit);
+      setText('ig-peakreel', ig.peakReel);
+      setText('ig-hits', ig.peakReelHits);
+      setBig('ig-rate', ig.engagementRate, '%');
+      setText('ig-benchmark', '~' + ig.benchmark + '%');
+      const mult = Number(ig.benchmark) > 0
+        ? (Math.round((Number(ig.engagementRate) / Number(ig.benchmark)) * 10) / 10) : null;
+      if (mult != null) setText('ig-multiplier', mult + '×');
+      setText('ig-viral', ig.viralViews);
+      setText('ig-viralsource', ig.viralSource);
+      setText('ig-viralmonth', ig.viralMonth);
 
-      const totalFollowersCounter = document.getElementById('total-followers-count');
-      if (totalFollowersCounter) totalFollowersCounter.dataset.count = String(igFollowers);
-    }
+      // §02 TikTok card
+      setText('tt-followers-value', tt.followers != null ? fmtNum(tt.followers) : null);
+      setBig('tt-postviews', tt.postViews, tt.postViewsUnit);
+      setText('tt-views28', tt.views28);
+      setText('tt-growth28', tt.growth28);
+      setBig('tt-likes', tt.likes, tt.likesUnit);
+      setText('tt-shares', tt.shares);
+      setText('tt-comments', tt.comments);
+      setBig('tt-viewers', tt.viewers, tt.viewersUnit);
+      setText('tt-newviewers', tt.newViewers);
+      setText('tt-genderf', tt.genderF);
+      setBig('tt-fyp', tt.fyp, '%');
+      setText('tt-search', tt.search);
+      setText('tt-profile', tt.profile);
 
-    if (ttFollowers != null) {
-      const ttEl = document.getElementById('tt-followers-value');
-      if (ttEl) ttEl.textContent = formatFollowers(ttFollowers);
-    }
+      // §03 Audience
+      barRows('demo-age-rows', ig.ages, 'label', 'pct');
+      barRows('demo-locations-rows', ig.locations, 'name', 'pct');
+      barRows('demo-windows-rows', ig.windows, 'day', 'pct', (r) => r.time);
+      if (ig.gender) {
+        const w = Number(ig.gender.women) || 0, m = Number(ig.gender.men) || 0;
+        const women = document.getElementById('donut-women');
+        const men = document.getElementById('donut-men');
+        if (women) women.setAttribute('stroke-dasharray', w + ' 100');
+        if (men) { men.setAttribute('stroke-dasharray', m + ' 100'); men.setAttribute('stroke-dashoffset', String(-w)); }
+        const center = document.getElementById('donut-center');
+        if (center) center.innerHTML = Math.round(w) + ' / ' + Math.round(m) + '<small>Women / Men</small>';
+        setText('gender-women-pct', w + '%');
+        setText('gender-men-pct', m + '%');
+      }
+
+      // Recent films — update the 6 cards in place (keeps their click handlers)
+      if (Array.isArray(d.posts)) {
+        const cards = document.querySelectorAll('.reel-grid .reel-card');
+        d.posts.forEach((p, i) => {
+          const card = cards[i];
+          if (!card || !p) return;
+          if (p.url) card.dataset.embedUrl = p.url;
+          const img = card.querySelector('.reel-img');
+          if (img && p.image) { img.src = p.image; if (p.title) img.alt = p.title; }
+          const tag = card.querySelector('.reel-tag');
+          if (tag && p.tag != null) tag.textContent = p.tag;
+          const title = card.querySelector('.reel-title');
+          if (title && p.title != null) title.textContent = p.title;
+          let views = card.querySelector('.reel-views');
+          if (p.views) {
+            if (!views) {
+              views = document.createElement('span');
+              views.className = 'reel-views';
+              card.insertBefore(views, card.querySelector('.reel-play'));
+            }
+            views.innerHTML = '◉ ' + esc(p.views);
+          } else if (views) {
+            views.remove();
+          }
+        });
+      }
+
+      // Verified date
+      setText('verified-contact', d.verified);
+      setText('verified-footer', 'Data verified ' + (d.verified || '') + ' via Instagram Insights');
+
+      // Re-render the headline counters with their new target values.
+      if (typeof setFinal === 'function') {
+        ['total-followers-count', 'stat-peakviews-n', 'stat-engagement-n', 'stat-collabs-n']
+          .forEach((id) => { const el = document.getElementById(id); if (el) setFinal(el); });
+      }
+    };
+
+    fetch('/api/stats', { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => { if (data) apply(data); })
+      .catch(() => { /* keep hardcoded fallback */ });
   })();
 
   // ---------- Embed modal ----------
